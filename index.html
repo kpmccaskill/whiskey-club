@@ -389,16 +389,15 @@ const BASE = [
 ];
 
 // ── STATE ────────────────────────────────────────────────────────────────────
-let customEntries = [];
-let activeMemberSort = ''; // e.g. 'scoreJon' — sorts by that member's score
-
-let overrides = {}; // score overrides for BASE entries, keyed by id
+let serverEntries = []; // all entries — loaded from server, source of truth
+let activeMemberSort = '';
 
 async function loadCustom(){
   try{
     const res = await fetch('/api/data');
-    if(res.ok){ const d=await res.json(); customEntries=d.entries||[]; overrides=d.overrides||{}; }
-  }catch(e){ customEntries=[]; overrides={}; }
+    if(res.ok){ const d=await res.json(); serverEntries=d.entries||BASE; }
+    else { serverEntries=[...BASE]; }
+  }catch(e){ serverEntries=[...BASE]; }
 }
 
 let _saveTimer=null;
@@ -409,7 +408,7 @@ function scheduleSave(){
 }
 async function pushData(){
   try{
-    const res=await fetch('/api/data',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({entries:customEntries,overrides})});
+    const res=await fetch('/api/data',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({entries:serverEntries})});
     setSaveStatus(res.ok?'saved':'error');
   }catch(e){ setSaveStatus('error'); }
 }
@@ -421,12 +420,8 @@ function setSaveStatus(s){
   if(s==='saved') setTimeout(()=>{ el.textContent=''; },2500);
 }
 
-function saveCustom(){ scheduleSave(); }
-function saveOverrides(){ scheduleSave(); }
-function getAllData(){
-  const baseWithOverrides = BASE.map(d => overrides[d.id] ? {...d,...overrides[d.id]} : d);
-  return [...baseWithOverrides,...customEntries];
-}
+function save(){ scheduleSave(); }
+function getAllData(){ return serverEntries; }
 
 // persist filter/sort state
 function saveUIState(){
@@ -658,7 +653,7 @@ function _openAddModal(){
 }
 function openEditModal(id){ requireAuth(()=>_openEditModal(id)); }
 function _openEditModal(id){
-  const d=customEntries.find(e=>e.id===id); if(!d) return;
+  const d=serverEntries.find(e=>e.id===id); if(!d) return;
   document.getElementById('addModalTitle').textContent='Edit Whiskey';
   document.getElementById('editId').value=id;
   document.getElementById('fName').value=d.whiskey||'';
@@ -689,16 +684,15 @@ function saveWhiskey(){
     scoreJon:null,scoreKev:null,scoreToph:null,scoreMcK:null,scoreCon:null,scoreAvg:0,quotes:'',
   };
   if(editId){
-    const existing=customEntries.find(e=>e.id===editId);
-    if(existing) Object.assign(entry,{gradeJon:existing.gradeJon,gradeKev:existing.gradeKev,gradeToph:existing.gradeToph,gradeMcK:existing.gradeMcK,gradeCon:existing.gradeCon,gradeAvg:existing.gradeAvg,scoreJon:existing.scoreJon,scoreKev:existing.scoreKev,scoreToph:existing.scoreToph,scoreMcK:existing.scoreMcK,scoreCon:existing.scoreCon,scoreAvg:existing.scoreAvg,quotes:existing.quotes});
-    customEntries[customEntries.findIndex(e=>e.id===editId)]=entry;
-  } else { customEntries.push(entry); }
-  saveCustom(); closeModal('addOverlay'); render(); openScoreModal(entry.id);
+    const idx=serverEntries.findIndex(e=>e.id===editId);
+    if(idx>=0){ const ex=serverEntries[idx]; Object.assign(entry,{gradeJon:ex.gradeJon,gradeKev:ex.gradeKev,gradeToph:ex.gradeToph,gradeMcK:ex.gradeMcK,gradeCon:ex.gradeCon,gradeAvg:ex.gradeAvg,scoreJon:ex.scoreJon,scoreKev:ex.scoreKev,scoreToph:ex.scoreToph,scoreMcK:ex.scoreMcK,scoreCon:ex.scoreCon,scoreAvg:ex.scoreAvg,quotes:ex.quotes}); serverEntries[idx]=entry; }
+  } else { serverEntries.push(entry); }
+  save(); closeModal('addOverlay'); render(); openScoreModal(entry.id);
 }
 function deleteEntry(){
   const id=document.getElementById('editId').value; if(!id) return;
   if(!confirm('Delete this entry?')) return;
-  customEntries=customEntries.filter(e=>e.id!==id); saveCustom(); closeModal('addOverlay'); render();
+  serverEntries=serverEntries.filter(e=>e.id!==id); save(); closeModal('addOverlay'); render();
 }
 
 // ── SCORE MODAL ───────────────────────────────────────────────────────────────
@@ -724,10 +718,9 @@ function saveScores(){
   const vals=Object.values(scores).filter(v=>v!==null);
   const avg=vals.length?vals.reduce((a,b)=>a+b,0)/vals.length:0;
   const update={...grades,...scores,gradeAvg:scoreToLetter(avg),scoreAvg:avg,quotes:quote};
-  const ci=customEntries.findIndex(e=>e.id===id);
-  if(ci>=0){ customEntries[ci]={...customEntries[ci],...update}; saveCustom(); }
-  else{ overrides[id]={...(overrides[id]||{}),...update}; saveOverrides(); }
-  closeModal('scoreOverlay'); render();
+  const ci=serverEntries.findIndex(e=>e.id===id);
+  if(ci>=0){ serverEntries[ci]={...serverEntries[ci],...update}; }
+  save(); closeModal('scoreOverlay'); render();
 }
 
 // ── MODAL HELPERS ─────────────────────────────────────────────────────────────
@@ -738,7 +731,7 @@ document.addEventListener('keydown',e=>{ if(e.key==='Escape'){ closeModal('addOv
 
 // ── EXPORT / IMPORT ───────────────────────────────────────────────────────────
 function exportData(){
-  const blob=new Blob([JSON.stringify({version:1,exported:new Date().toISOString(),entries:customEntries,overrides},null,2)],{type:'application/json'});
+  const blob=new Blob([JSON.stringify({version:1,exported:new Date().toISOString(),entries:serverEntries},null,2)],{type:'application/json'});
   const a=document.createElement('a'); a.href=URL.createObjectURL(blob);
   a.download='gfwc-'+new Date().toISOString().slice(0,10)+'.json'; a.click();
 }
@@ -751,7 +744,7 @@ async function importData(e){
     const entries=data.entries||data;
     if(!Array.isArray(entries)) throw new Error('bad format');
     if(!confirm(`Import ${entries.length} entries? This replaces current custom entries.`)) return;
-    customEntries=entries; if(data.overrides) overrides=data.overrides; await pushData(); render(); alert('Imported!');
+    serverEntries=entries; await pushData(); render(); alert('Imported!');
   }catch(err){alert('Import failed: '+err.message);} };
   r.readAsText(file); e.target.value='';
 }
