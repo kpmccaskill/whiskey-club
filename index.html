@@ -458,16 +458,6 @@ function normMember(m){
 }
 
 // ── INIT ─────────────────────────────────────────────────────────────────────
-loadCustom();
-
-const allTypes=[...new Set(getAllData().map(d=>d.type).filter(Boolean))].sort();
-const ftEl=document.getElementById('filterType');
-allTypes.forEach(t=>{ const o=document.createElement('option');o.value=t;o.textContent=t;ftEl.appendChild(o); });
-document.getElementById('typeList').innerHTML=allTypes.map(t=>`<option value="${t}">`).join('');
-
-const allYears=[...new Set(getAllData().map(d=>d.year).filter(Boolean))].sort((a,b)=>b-a);
-const fyEl=document.getElementById('filterYear');
-allYears.forEach(y=>{ const o=document.createElement('option');o.value=y;o.textContent=y;fyEl.appendChild(o); });
 
 // ── AUTH ──────────────────────────────────────────────────────────────────────
 let _auth = false;
@@ -750,13 +740,25 @@ async function importData(e){
 }
 
 (async()=>{
-  await loadCustom();
-  restoreUIState();
-  render();
-  ['search','filterType','filterYear','filterMember','sortBy'].forEach(id=>{
-    document.getElementById(id).addEventListener('change',saveUIState);
-    document.getElementById(id).addEventListener('input',saveUIState);
-  });
+  try {
+    document.getElementById('grid').innerHTML='<div style="padding:2rem;color:var(--text-dim)">Loading...</div>';
+    await loadCustom();
+    const allTypes=[...new Set(getAllData().map(d=>d.type).filter(Boolean))].sort();
+    const ftEl=document.getElementById('filterType');
+    allTypes.forEach(t=>{ const o=document.createElement('option');o.value=t;o.textContent=t;ftEl.appendChild(o); });
+    document.getElementById('typeList').innerHTML=allTypes.map(t=>`<option value="${t}">`).join('');
+    const allYears=[...new Set(getAllData().map(d=>d.year).filter(Boolean))].sort((a,b)=>b-a);
+    const fyEl=document.getElementById('filterYear');
+    allYears.forEach(y=>{ const o=document.createElement('option');o.value=y;o.textContent=y;fyEl.appendChild(o); });
+    restoreUIState();
+    render();
+    ['search','filterType','filterYear','filterMember','sortBy'].forEach(id=>{
+      document.getElementById(id).addEventListener('change',saveUIState);
+      document.getElementById(id).addEventListener('input',saveUIState);
+    });
+  } catch(err) {
+    document.getElementById('grid').innerHTML=`<div style="padding:2rem;color:#c04040">Error loading data: ${err.message}<br><pre>${err.stack}</pre></div>`;
+  }
 })();
 </script>
 </body>
