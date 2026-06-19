@@ -734,7 +734,7 @@ function importClick(){ document.getElementById('importFile').click(); }
 async function importData(e){
   const file=e.target.files[0]; if(!file) return;
   const r=new FileReader();
-  r.onload=ev=>{ try{
+  r.onload=async ev=>{ try{
     const data=JSON.parse(ev.target.result);
     const entries=data.entries||data;
     if(!Array.isArray(entries)) throw new Error('bad format');
