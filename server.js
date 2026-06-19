@@ -36,4 +36,9 @@ app.post('/api/data', (req, res) => {
   }
 });
 
+app.post('/api/reseed', (req, res) => {
+  try { fs.copyFileSync(SEED_FILE, DATA_FILE); res.json({ ok: true, msg: 'Reseeded from seed.json' }); }
+  catch (e) { res.status(500).json({ error: e.message }); }
+});
+
 app.listen(PORT, () => console.log(`GFWC running on port ${PORT}`));
