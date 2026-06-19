@@ -19,170 +19,71 @@
   --text-mid: #c4a880;
   --green: #5a9e6f;
   --amber: #d4882a;
-  --red: #b83c3c;
   --blue: #6090b8;
   --radius: 12px;
   --shadow: 0 2px 12px rgba(0,0,0,0.5);
 }
 *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
-html{scroll-behavior:smooth}
 body{background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;min-height:100vh;padding-bottom:80px}
 
 /* HEADER */
-.header{
-  background:linear-gradient(180deg,#1e1406 0%,#141009 100%);
-  border-bottom:1px solid var(--border);
-  padding:20px 16px 14px;
-  text-align:center;
-}
+.header{background:linear-gradient(180deg,#1e1406 0%,#141009 100%);border-bottom:1px solid var(--border);padding:20px 16px 14px;text-align:center}
 .header h1{font-size:1.5rem;color:var(--gold-light);letter-spacing:.04em;font-weight:700}
 .header p{color:var(--text-dim);font-size:.8rem;margin-top:4px}
 
 /* MEMBER TABS */
-.member-tabs{
-  background:var(--surface);
-  border-bottom:1px solid var(--border);
-  padding:0 8px;
-  display:flex;
-  overflow-x:auto;
-  -webkit-overflow-scrolling:touch;
-  scrollbar-width:none;
-  gap:4px;
-  position:sticky;
-  top:0;
-  z-index:20;
-}
+.member-tabs{background:var(--surface);border-bottom:1px solid var(--border);padding:0 8px;display:flex;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none;gap:4px;position:sticky;top:0;z-index:20}
 .member-tabs::-webkit-scrollbar{display:none}
-.mtab{
-  padding:12px 14px;
-  font-size:.82rem;
-  font-weight:600;
-  color:var(--text-dim);
-  cursor:pointer;
-  border-bottom:2px solid transparent;
-  white-space:nowrap;
-  transition:color .15s,border-color .15s;
-  user-select:none;
-}
+.mtab{padding:12px 14px;font-size:.82rem;font-weight:600;color:var(--text-dim);cursor:pointer;border-bottom:2px solid transparent;white-space:nowrap;transition:color .15s,border-color .15s;user-select:none;flex-shrink:0}
 .mtab:hover{color:var(--text-mid)}
 .mtab.active{color:var(--gold-light);border-bottom-color:var(--gold)}
-.mtab .count{
-  display:inline-block;
-  background:var(--surface2);
-  color:var(--text-dim);
-  font-size:.68rem;
-  padding:1px 5px;
-  border-radius:8px;
-  margin-left:4px;
-  vertical-align:middle;
-}
-.mtab.active .count{background:var(--gold-dim);color:var(--gold-light)}
+.tab-hint{font-size:.68rem;color:var(--text-dim);padding:14px 8px;white-space:nowrap;flex-shrink:0;align-self:center;opacity:.7}
 
 /* CONTROLS */
-.controls{
-  padding:10px 12px;
-  display:flex;
-  flex-wrap:wrap;
-  gap:8px;
-  align-items:center;
-  background:var(--surface);
-  border-bottom:1px solid var(--border);
-  position:sticky;
-  top:44px;
-  z-index:19;
-}
+.controls{padding:10px 12px;display:flex;flex-wrap:wrap;gap:8px;align-items:center;background:var(--surface);border-bottom:1px solid var(--border);position:sticky;top:45px;z-index:19}
 .search-wrap{flex:1;min-width:140px;position:relative}
-.search-wrap input{
-  width:100%;
-  padding:9px 10px 9px 32px;
-  background:var(--bg);
-  border:1px solid var(--border);
-  border-radius:8px;
-  color:var(--text);
-  font-size:.85rem;
-}
+.search-wrap input{width:100%;padding:9px 10px 9px 32px;background:var(--bg);border:1px solid var(--border);border-radius:8px;color:var(--text);font-size:.85rem}
 .search-wrap::before{content:'🔍';position:absolute;left:9px;top:50%;transform:translateY(-50%);font-size:.8rem;pointer-events:none}
-.ctrl-select{
-  padding:9px 10px;
-  background:var(--bg);
-  border:1px solid var(--border);
-  border-radius:8px;
-  color:var(--text);
-  font-size:.82rem;
-  cursor:pointer;
-  max-width:140px;
-}
 .ctrl-row{display:flex;gap:8px;flex-wrap:wrap;width:100%;align-items:center}
-.ctrl-label{color:var(--text-dim);font-size:.75rem;white-space:nowrap}
+.ctrl-select{padding:9px 10px;background:var(--bg);border:1px solid var(--border);border-radius:8px;color:var(--text);font-size:.82rem;cursor:pointer}
 .count-info{color:var(--text-dim);font-size:.75rem;margin-left:auto;white-space:nowrap}
 
 /* GRID */
-.grid{
-  display:grid;
-  grid-template-columns:1fr;
-  gap:10px;
-  padding:12px;
-}
+.grid{display:grid;grid-template-columns:1fr;gap:10px;padding:12px}
 @media(min-width:600px){.grid{grid-template-columns:repeat(2,1fr)}}
 @media(min-width:960px){.grid{grid-template-columns:repeat(3,1fr)}}
 
 /* CARD */
-.card{
-  background:var(--surface);
-  border:1px solid var(--border);
-  border-radius:var(--radius);
-  overflow:hidden;
-  box-shadow:var(--shadow);
-  transition:border-color .15s;
-}
+.card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow);transition:border-color .15s}
 .card:hover{border-color:var(--border-light)}
 
+/* card top: rank number + score bubble + info */
 .card-top{padding:12px 14px 10px;display:flex;gap:10px;align-items:flex-start}
-.score-bubble{
-  flex-shrink:0;
-  width:50px;
-  text-align:center;
-  background:var(--surface2);
-  border-radius:8px;
-  padding:6px 4px;
-  border:1px solid var(--border);
-}
+.rank-num{flex-shrink:0;width:24px;font-size:.75rem;color:var(--text-dim);text-align:right;padding-top:4px;font-weight:600}
+.score-bubble{flex-shrink:0;width:52px;text-align:center;background:var(--surface2);border-radius:8px;padding:6px 4px;border:1px solid var(--border)}
 .score-bubble .num{font-size:1.4rem;font-weight:700;line-height:1}
 .score-bubble .denom{font-size:.6rem;color:var(--text-dim)}
 .score-bubble .letter{font-size:.8rem;font-weight:600;margin-top:2px}
-
 .card-info{flex:1;min-width:0}
-.whiskey-name{
-  font-size:.98rem;
-  font-weight:700;
-  color:var(--text);
-  line-height:1.3;
-  margin-bottom:6px;
-}
+.whiskey-name{font-size:.98rem;font-weight:700;color:var(--text);line-height:1.3;margin-bottom:6px}
 .whiskey-name a{color:inherit;text-decoration:none}
 .whiskey-name a:hover{color:var(--gold-light)}
 .tags{display:flex;flex-wrap:wrap;gap:4px}
-.tag{
-  font-size:.72rem;
-  padding:2px 8px;
-  border-radius:20px;
-  border:1px solid;
-  white-space:nowrap;
-}
+.tag{font-size:.72rem;padding:2px 8px;border-radius:20px;border:1px solid;white-space:nowrap}
 .tag-type{color:var(--amber);border-color:rgba(212,136,42,.35);background:rgba(212,136,42,.08)}
 .tag-member{color:var(--blue);border-color:rgba(96,144,184,.35);background:rgba(96,144,184,.08)}
 .tag-season{color:var(--text-dim);border-color:var(--border);background:transparent}
 .tag-price{color:var(--green);border-color:rgba(90,158,111,.35);background:rgba(90,158,111,.08)}
 .tag-proof{color:var(--text-dim);border-color:var(--border);background:transparent}
 
-/* MEMBER SCORES */
-.scores-row{
-  padding:8px 14px;
-  border-top:1px solid var(--border);
-  display:grid;
-  grid-template-columns:repeat(5,1fr);
-  gap:4px;
-}
+/* SPOTLIGHT: when a member tab is active, show their score big */
+.spotlight{padding:8px 14px;border-top:1px solid var(--border);display:flex;align-items:center;gap:10px;background:rgba(200,146,42,.05)}
+.spotlight-grade{font-size:2rem;font-weight:700;line-height:1;min-width:44px;text-align:center}
+.spotlight-score{font-size:.85rem;color:var(--text-mid);font-weight:600}
+.spotlight-label{font-size:.72rem;color:var(--text-dim)}
+
+/* MEMBER SCORES ROW */
+.scores-row{padding:8px 14px;border-top:1px solid var(--border);display:grid;grid-template-columns:repeat(5,1fr);gap:4px}
 .sc{text-align:center}
 .sc-name{font-size:.65rem;color:var(--text-dim);margin-bottom:2px}
 .sc-grade{font-size:.88rem;font-weight:700}
@@ -190,89 +91,39 @@ body{background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSy
 .bar-wrap{height:3px;background:var(--bg);border-radius:2px;margin:2px 0;overflow:hidden}
 .bar{height:100%;border-radius:2px}
 
-/* Grade colors */
-.gA-plus,.gA,.gA-minus{color:#f0c040}
-.gB-plus,.gB,.gB-minus{color:#80c060}
-.gC-plus,.gC,.gC-minus{color:#c8b040}
-.gD-plus,.gD,.gD-minus{color:#d08040}
+/* grade colors */
+.gAplus,.gA,.gAminus{color:#f0c040}
+.gBplus,.gB,.gBminus{color:#80c060}
+.gCplus,.gC,.gCminus{color:#c8b040}
+.gDplus,.gD,.gDminus{color:#d08040}
 .gF{color:#c04040}
 .gNone{color:var(--border-light)}
 
 /* QUOTE */
-.quote{
-  padding:8px 14px;
-  border-top:1px solid var(--border);
-  font-size:.78rem;
-  color:var(--text-dim);
-  font-style:italic;
-  line-height:1.45;
-}
+.quote{padding:8px 14px;border-top:1px solid var(--border);font-size:.78rem;color:var(--text-dim);font-style:italic;line-height:1.45}
 
-/* CARD FOOTER (score button) */
-.card-footer{
-  padding:8px 14px;
-  border-top:1px solid var(--border);
-  display:flex;
-  justify-content:flex-end;
-}
-.btn-score{
-  padding:6px 14px;
-  background:var(--surface2);
-  border:1px solid var(--border-light);
-  border-radius:6px;
-  color:var(--text-mid);
-  font-size:.78rem;
-  cursor:pointer;
-  font-weight:600;
-  transition:background .15s,color .15s;
-}
+/* CARD FOOTER */
+.card-footer{padding:8px 14px;border-top:1px solid var(--border);display:flex;justify-content:flex-end;gap:8px}
+.btn-score{padding:6px 14px;background:var(--surface2);border:1px solid var(--border-light);border-radius:6px;color:var(--text-mid);font-size:.78rem;cursor:pointer;font-weight:600;transition:background .15s}
 .btn-score:hover{background:var(--border);color:var(--text)}
 
 /* FAB */
-.fab{
-  position:fixed;
-  bottom:20px;
-  right:16px;
-  width:54px;height:54px;
-  background:var(--gold);
-  border:none;
-  border-radius:50%;
-  color:#1a1000;
-  font-size:1.5rem;
-  cursor:pointer;
-  box-shadow:0 4px 16px rgba(200,146,42,.5);
-  display:flex;align-items:center;justify-content:center;
-  z-index:100;
-  transition:transform .15s,background .15s;
-}
+.fab{position:fixed;bottom:20px;right:16px;width:54px;height:54px;background:var(--gold);border:none;border-radius:50%;color:#1a1000;font-size:1.5rem;cursor:pointer;box-shadow:0 4px 16px rgba(200,146,42,.5);display:flex;align-items:center;justify-content:center;z-index:100;transition:transform .15s,background .15s}
 .fab:hover{background:var(--gold-light);transform:scale(1.05)}
 .fab:active{transform:scale(.95)}
 
+/* EXPORT BAR */
+.export-bar{display:flex;align-items:center;justify-content:center;gap:10px;padding:8px 12px;background:var(--surface2);border-bottom:1px solid var(--border)}
+.btn-export{padding:6px 14px;background:transparent;border:1px solid var(--border-light);border-radius:6px;color:var(--text-dim);font-size:.75rem;cursor:pointer;transition:background .15s}
+.btn-export:hover{background:var(--border)}
+
 /* MODAL */
-.overlay{
-  display:none;
-  position:fixed;inset:0;
-  background:rgba(0,0,0,.75);
-  z-index:200;
-  align-items:flex-end;
-  padding:0;
-}
+.overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.75);z-index:200;align-items:flex-end}
 .overlay.open{display:flex}
 @media(min-width:600px){.overlay{align-items:center;justify-content:center;padding:20px}}
-.modal{
-  background:var(--surface);
-  border:1px solid var(--border-light);
-  border-radius:16px 16px 0 0;
-  width:100%;
-  max-height:90vh;
-  overflow-y:auto;
-  padding:20px 16px 32px;
-  box-shadow:0 -8px 40px rgba(0,0,0,.6);
-}
-@media(min-width:600px){.modal{border-radius:var(--radius);max-width:480px;max-height:85vh;padding:24px 24px 28px}}
-.modal-handle{
-  width:40px;height:4px;background:var(--border-light);border-radius:2px;margin:0 auto 16px;
-}
+.modal{background:var(--surface);border:1px solid var(--border-light);border-radius:16px 16px 0 0;width:100%;max-height:90vh;overflow-y:auto;padding:20px 16px 32px;box-shadow:0 -8px 40px rgba(0,0,0,.6)}
+@media(min-width:600px){.modal{border-radius:var(--radius);max-width:480px;padding:24px 24px 28px}}
+.modal-handle{width:40px;height:4px;background:var(--border-light);border-radius:2px;margin:0 auto 16px}
 @media(min-width:600px){.modal-handle{display:none}}
 .modal h2{font-size:1.1rem;color:var(--gold-light);margin-bottom:16px;font-weight:700}
 .modal-subtitle{font-size:.82rem;color:var(--text-dim);margin-top:-10px;margin-bottom:16px}
@@ -280,82 +131,28 @@ body{background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSy
 /* FORM */
 .field{margin-bottom:14px}
 .field label{display:block;font-size:.78rem;color:var(--text-dim);margin-bottom:5px;font-weight:600}
-.field input,.field select,.field textarea{
-  width:100%;
-  padding:10px 12px;
-  background:var(--bg);
-  border:1px solid var(--border-light);
-  border-radius:8px;
-  color:var(--text);
-  font-size:.88rem;
-}
-.field textarea{resize:vertical;min-height:60px;font-family:inherit}
-.field input:focus,.field select:focus,.field textarea:focus{
-  outline:none;border-color:var(--gold-dim);
-}
+.field input,.field select,.field textarea{width:100%;padding:10px 12px;background:var(--bg);border:1px solid var(--border-light);border-radius:8px;color:var(--text);font-size:.88rem;font-family:inherit}
+.field textarea{resize:vertical;min-height:60px}
+.field input:focus,.field select:focus,.field textarea:focus{outline:none;border-color:var(--gold-dim)}
 .field-row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
 
 /* SCORE ENTRY */
 .score-entries{display:flex;flex-direction:column;gap:8px;margin-bottom:16px}
-.score-entry{
-  display:grid;
-  grid-template-columns:80px 1fr;
-  align-items:center;
-  gap:10px;
-  padding:8px 10px;
-  background:var(--bg);
-  border:1px solid var(--border);
-  border-radius:8px;
-}
+.score-entry{display:grid;grid-template-columns:80px 1fr;align-items:center;gap:10px;padding:8px 10px;background:var(--bg);border:1px solid var(--border);border-radius:8px}
 .score-entry .mem-name{font-size:.85rem;font-weight:600;color:var(--text-mid)}
-.grade-select{
-  padding:8px 10px;
-  background:var(--surface2);
-  border:1px solid var(--border-light);
-  border-radius:6px;
-  color:var(--text);
-  font-size:.85rem;
-  width:100%;
-}
+.grade-select{padding:8px 10px;background:var(--surface2);border:1px solid var(--border-light);border-radius:6px;color:var(--text);font-size:.85rem;width:100%}
 
 /* BUTTONS */
 .btn-row{display:flex;gap:8px;margin-top:16px}
-.btn{
-  flex:1;padding:12px;border:none;border-radius:8px;font-size:.9rem;font-weight:700;cursor:pointer;transition:opacity .15s;
-}
+.btn{flex:1;padding:12px;border:none;border-radius:8px;font-size:.9rem;font-weight:700;cursor:pointer}
 .btn:active{opacity:.8}
 .btn-primary{background:var(--gold);color:#1a1000}
 .btn-secondary{background:var(--surface2);color:var(--text-mid);border:1px solid var(--border-light)}
 .btn-danger{background:#6b2020;color:#f0a0a0;border:1px solid #8b3030}
 
-/* EXPORT BAR */
-.export-bar{
-  display:flex;align-items:center;justify-content:center;gap:10px;
-  padding:8px 12px;
-  background:var(--surface2);
-  border-bottom:1px solid var(--border);
-}
-.btn-export{
-  padding:6px 14px;background:transparent;border:1px solid var(--border-light);
-  border-radius:6px;color:var(--text-dim);font-size:.75rem;cursor:pointer;
-  transition:background .15s;
-}
-.btn-export:hover{background:var(--border)}
-
-/* NO RESULTS */
-.no-results{
-  text-align:center;padding:50px 20px;color:var(--text-dim);
-  font-style:italic;grid-column:1/-1;
-}
-
-/* CUSTOM BADGE */
-.custom-badge{
-  display:inline-block;font-size:.62rem;padding:1px 5px;
-  background:rgba(200,146,42,.2);color:var(--gold-dim);
-  border-radius:4px;margin-left:4px;vertical-align:middle;
-}
-
-input:focus,select:focus{outline:none}
+/* MISC */
+.no-results{text-align:center;padding:50px 20px;color:var(--text-dim);font-style:italic;grid-column:1/-1}
+.custom-badge{display:inline-block;font-size:.62rem;padding:1px 5px;background:rgba(200,146,42,.2);color:var(--gold-dim);border-radius:4px;margin-left:4px;vertical-align:middle}
 input::placeholder{color:var(--text-dim)}
 </style>
 </head>
@@ -363,24 +160,26 @@ input::placeholder{color:var(--text-dim)}
 
 <div class="header">
   <h1>🥃 Good Friday Whiskey Club</h1>
-  <p>Rankings & Reviews</p>
+  <p>Rankings &amp; Reviews</p>
 </div>
 
 <div class="export-bar">
   <span style="font-size:.74rem;color:var(--text-dim)">Custom entries saved in browser</span>
-  <button class="btn-export" onclick="exportData()">⬇ Export JSON</button>
-  <button class="btn-export" onclick="importClick()">⬆ Import JSON</button>
+  <button class="btn-export" onclick="exportData()">⬇ Export</button>
+  <button class="btn-export" onclick="importClick()">⬆ Import</button>
   <input type="file" id="importFile" accept=".json" style="display:none" onchange="importData(event)">
 </div>
 
+<!-- member tabs: tap a name to sort by their ratings -->
 <div class="member-tabs" id="memberTabs">
-  <div class="mtab active" data-member="" onclick="setMember(this,'')">All <span class="count" id="cnt-all"></span></div>
-  <div class="mtab" data-member="Jonathan" onclick="setMember(this,'Jonathan')">Jonathan <span class="count" id="cnt-Jonathan"></span></div>
-  <div class="mtab" data-member="Kbone" onclick="setMember(this,'Kbone')">Kbone <span class="count" id="cnt-Kbone"></span></div>
-  <div class="mtab" data-member="Topher" onclick="setMember(this,'Topher')">Topher <span class="count" id="cnt-Topher"></span></div>
-  <div class="mtab" data-member="McK" onclick="setMember(this,'McK')">McK <span class="count" id="cnt-McK"></span></div>
-  <div class="mtab" data-member="Connor" onclick="setMember(this,'Connor')">Connor <span class="count" id="cnt-Connor"></span></div>
-  <div class="mtab" data-member="Mattison" onclick="setMember(this,'Mattison')">Mattison <span class="count" id="cnt-Mattison"></span></div>
+  <div class="mtab active" data-msort="" onclick="setMemberSort(this,'')">All</div>
+  <div class="mtab" data-msort="scoreJon" onclick="setMemberSort(this,'scoreJon')">Jonathan</div>
+  <div class="mtab" data-msort="scoreKev" onclick="setMemberSort(this,'scoreKev')">Kbone</div>
+  <div class="mtab" data-msort="scoreToph" onclick="setMemberSort(this,'scoreToph')">Topher</div>
+  <div class="mtab" data-msort="scoreMcK" onclick="setMemberSort(this,'scoreMcK')">McK</div>
+  <div class="mtab" data-msort="scoreCon" onclick="setMemberSort(this,'scoreCon')">Connor</div>
+  <div class="mtab" data-msort="scoreMat" onclick="setMemberSort(this,'scoreMat')">Mattison</div>
+  <span class="tab-hint">← tap to sort by their ratings</span>
 </div>
 
 <div class="controls">
@@ -394,82 +193,49 @@ input::placeholder{color:var(--text-dim)}
     <select class="ctrl-select" id="filterYear" onchange="render()">
       <option value="">All Years</option>
     </select>
+    <select class="ctrl-select" id="filterMember" onchange="render()">
+      <option value="">All Members</option>
+      <option>Jonathan</option><option>Kbone</option><option>Topher</option>
+      <option>McK</option><option>Connor</option><option>Mattison</option>
+    </select>
     <select class="ctrl-select" id="sortBy" onchange="render()">
-      <option value="scoreAvg-desc">Best First</option>
-      <option value="scoreAvg-asc">Worst First</option>
+      <option value="scoreAvg-desc">Best Avg First</option>
+      <option value="scoreAvg-asc">Worst Avg First</option>
       <option value="name-asc">Name A–Z</option>
       <option value="price-asc">Price ↑</option>
       <option value="price-desc">Price ↓</option>
       <option value="year-desc">Newest First</option>
       <option value="year-asc">Oldest First</option>
-      <option value="scoreJon-desc">Jon's Faves</option>
-      <option value="scoreKev-desc">Kbone's Faves</option>
-      <option value="scoreToph-desc">Topher's Faves</option>
-      <option value="scoreMcK-desc">McK's Faves</option>
-      <option value="scoreCon-desc">Connor's Faves</option>
     </select>
     <span class="count-info" id="countInfo"></span>
   </div>
 </div>
 
 <div class="grid" id="grid"></div>
-
 <button class="fab" onclick="openAddModal()" title="Add Whiskey">+</button>
 
-<!-- ADD/EDIT WHISKEY MODAL -->
+<!-- ADD / EDIT MODAL -->
 <div class="overlay" id="addOverlay" onclick="maybeClose(event,'addOverlay')">
-  <div class="modal" id="addModal">
+  <div class="modal">
     <div class="modal-handle"></div>
     <h2 id="addModalTitle">Add Whiskey</h2>
     <input type="hidden" id="editId">
-    <div class="field">
-      <label>Whiskey Name *</label>
-      <input type="text" id="fName" placeholder="e.g. Redbreast 12">
+    <div class="field"><label>Whiskey Name *</label><input type="text" id="fName" placeholder="e.g. Redbreast 12"></div>
+    <div class="field-row">
+      <div class="field"><label>Brought by</label>
+        <select id="fMember"><option>Jonathan</option><option>Kbone</option><option>Topher</option><option selected>McK</option><option>Connor</option><option>Mattison</option></select>
+      </div>
+      <div class="field"><label>Type</label><input type="text" id="fType" list="typeList" placeholder="e.g. Bourbon"><datalist id="typeList"></datalist></div>
     </div>
     <div class="field-row">
-      <div class="field">
-        <label>Brought by</label>
-        <select id="fMember">
-          <option value="Jonathan">Jonathan</option>
-          <option value="Kbone">Kbone</option>
-          <option value="Topher">Topher</option>
-          <option value="McK">McK</option>
-          <option value="Connor">Connor</option>
-          <option value="Mattison">Mattison</option>
-        </select>
-      </div>
-      <div class="field">
-        <label>Type</label>
-        <input type="text" id="fType" list="typeList" placeholder="e.g. Bourbon">
-        <datalist id="typeList"></datalist>
-      </div>
+      <div class="field"><label>Year</label><input type="number" id="fYear" min="2020" max="2035"></div>
+      <div class="field"><label>Quarter</label><select id="fQuarter"><option>Q1</option><option>Q2</option><option>Q3</option><option>Q4</option></select></div>
     </div>
     <div class="field-row">
-      <div class="field">
-        <label>Year</label>
-        <input type="number" id="fYear" min="2020" max="2035" placeholder="2025">
-      </div>
-      <div class="field">
-        <label>Quarter</label>
-        <select id="fQuarter">
-          <option>Q1</option><option>Q2</option><option>Q3</option><option>Q4</option>
-        </select>
-      </div>
+      <div class="field"><label>Price ($)</label><input type="text" id="fPrice" placeholder="75"></div>
+      <div class="field"><label>Proof</label><input type="text" id="fProof" placeholder="90"></div>
     </div>
-    <div class="field-row">
-      <div class="field">
-        <label>Price ($)</label>
-        <input type="text" id="fPrice" placeholder="e.g. 75">
-      </div>
-      <div class="field">
-        <label>Proof</label>
-        <input type="text" id="fProof" placeholder="e.g. 90">
-      </div>
-    </div>
-    <div class="field">
-      <label>Link (optional)</label>
-      <input type="url" id="fLink" placeholder="https://…">
-    </div>
+    <div class="field"><label>Link (optional)</label><input type="url" id="fLink" placeholder="https://…"></div>
     <div class="btn-row">
       <button class="btn btn-secondary" onclick="closeModal('addOverlay')">Cancel</button>
       <button class="btn btn-primary" onclick="saveWhiskey()">Next: Add Scores →</button>
@@ -482,16 +248,13 @@ input::placeholder{color:var(--text-dim)}
 
 <!-- SCORE MODAL -->
 <div class="overlay" id="scoreOverlay" onclick="maybeClose(event,'scoreOverlay')">
-  <div class="modal" id="scoreModal">
+  <div class="modal">
     <div class="modal-handle"></div>
     <h2 id="scoreModalTitle">Score Whiskey</h2>
     <div class="modal-subtitle" id="scoreModalSub"></div>
     <input type="hidden" id="scoreTargetId">
     <div class="score-entries" id="scoreEntries"></div>
-    <div class="field">
-      <label>Key Quote (optional)</label>
-      <textarea id="fQuote" placeholder="Best line of the night…"></textarea>
-    </div>
+    <div class="field"><label>Key Quote (optional)</label><textarea id="fQuote" placeholder="Best line of the night…"></textarea></div>
     <div class="btn-row">
       <button class="btn btn-secondary" onclick="closeModal('scoreOverlay')">Cancel</button>
       <button class="btn btn-primary" onclick="saveScores()">Save Scores</button>
@@ -500,23 +263,12 @@ input::placeholder{color:var(--text-dim)}
 </div>
 
 <script>
-// ── GRADE MAPPING ────────────────────────────────────────────────────────────
+// ── CONSTANTS ────────────────────────────────────────────────────────────────
 const GRADE_SCORE = {
-  'A+':10,'A':9.242424242,'A-':8.409090909,
-  'B+':7.575757576,'B':6.742424242,'B-':5.909090909,
-  'C+':5.075757576,'C':4.242424242,'C-':3.409090909,
-  'D+':2.575757576,'D':1.742424242,'D-':0.909090909,
-  'F':0
+  'A+':10,'A':9.242,'A-':8.409,'B+':7.576,'B':6.742,'B-':5.909,
+  'C+':5.076,'C':4.242,'C-':3.409,'D+':2.576,'D':1.742,'D-':0.909,'F':0
 };
 const GRADES = ['A+','A','A-','B+','B','B-','C+','C','C-','D+','D','D-','F'];
-const GRADE_AVG_THRESHOLDS = [
-  [9.5,'A+'],[8.8,'A'],[8.0,'A-'],[7.2,'B+'],[6.5,'B'],[5.7,'B-'],
-  [4.9,'C+'],[4.1,'C'],[3.3,'C-'],[2.5,'D+'],[1.8,'D'],[0.9,'D-'],[0,'F']
-];
-function scoreToLetterAvg(s){
-  for(const [t,g] of GRADE_AVG_THRESHOLDS) if(s>=t) return g;
-  return 'F';
-}
 
 const MEMBERS = [
   {key:'Jon',  label:'Jonathan', gk:'gradeJon',  sk:'scoreJon'},
@@ -526,71 +278,138 @@ const MEMBERS = [
   {key:'Con',  label:'Connor',   gk:'gradeCon',  sk:'scoreCon'},
 ];
 
-// ── BASE DATA ────────────────────────────────────────────────────────────────
-const BASE = [{"id":"b0","order":"7","year":2024,"quarter":"Q4","member":"McK","whiskey":"Hitachino Espresso Stout","price":"8","proof":"","type":"Japanese Beer","link":"","gradeJon":"A-","gradeKev":"C","gradeToph":"C","gradeMcK":"A-","gradeCon":"B+","gradeAvg":"B","quotes":"\"It's sweet if you suck it\" - Toph","scoreJon":8.409,"scoreKev":4.242,"scoreToph":4.242,"scoreMcK":8.409,"scoreCon":7.576,"scoreAvg":6.326},{"id":"b1","order":"3","year":2025,"quarter":"Q2","member":"Kbone","whiskey":"Wolcott 1792","price":"29","proof":"90","type":"Bourbon","link":"","gradeJon":"C-","gradeKev":"B-","gradeToph":"C+","gradeMcK":"C+","gradeCon":"B-","gradeAvg":"C+","quotes":"Jesus Christ it's Jason Borne - Everyone","scoreJon":3.409,"scoreKev":5.909,"scoreToph":5.076,"scoreMcK":5.076,"scoreCon":5.909,"scoreAvg":4.867},{"id":"b2","order":"7","year":2024,"quarter":"Q1","member":"Kbone","whiskey":"Buffalo Trace","price":"30","proof":"","type":"Bourbon","link":"","gradeJon":"C","gradeKev":"B+","gradeToph":"B+","gradeMcK":"B-","gradeCon":"","gradeAvg":"B","quotes":"\"I fuck with this\" - Kevin M","scoreJon":4.242,"scoreKev":7.576,"scoreToph":7.576,"scoreMcK":5.909,"scoreCon":null,"scoreAvg":6.326},{"id":"b3","order":"3","year":2025,"quarter":"Q4","member":"Kbone","whiskey":"Old Grand-Dad","price":"30","proof":"114","type":"Bourbon","link":"","gradeJon":"D","gradeKev":"B+","gradeToph":"B","gradeMcK":"C+","gradeCon":"C","gradeAvg":"B-","quotes":"\"My throat is numb\" - Connor, \"It's just something about the krinkle\" - McK","scoreJon":1.742,"scoreKev":7.576,"scoreToph":6.742,"scoreMcK":5.076,"scoreCon":4.242,"scoreAvg":5.284},{"id":"b4","order":"2","year":2025,"quarter":"Q4","member":"Kbone","whiskey":"McFarlanes Reserve Select Cask Strength","price":"34","proof":"112","type":"Bourbon","link":"","gradeJon":"C-","gradeKev":"B","gradeToph":"C+","gradeMcK":"C-","gradeCon":"B","gradeAvg":"C+","quotes":"\"Tastes like mouthwash. Feels like mouthwash\" - Jon, \"Does it taste hot or does it feel hot? It's hot\" - Kev","scoreJon":3.409,"scoreKev":6.742,"scoreToph":5.076,"scoreMcK":3.409,"scoreCon":6.742,"scoreAvg":4.659},{"id":"b5","order":"1","year":2024,"quarter":"Q4","member":"Jonathan","whiskey":"Abasolo","price":"38","proof":"86","type":"Mexican Corn","link":"","gradeJon":"B-","gradeKev":"C-","gradeToph":"B","gradeMcK":"C+","gradeCon":"B-","gradeAvg":"B-","quotes":"","scoreJon":5.909,"scoreKev":3.409,"scoreToph":6.742,"scoreMcK":5.076,"scoreCon":5.909,"scoreAvg":5.284},{"id":"b6","order":"1","year":2025,"quarter":"Q2","member":"McK","whiskey":"Full Bore","price":"40","proof":"70","type":"Flavored Whiskey","link":"","gradeJon":"F","gradeKev":"F","gradeToph":"D","gradeMcK":"F","gradeCon":"F","gradeAvg":"D-","quotes":"\"it's something though\" - Kbone","scoreJon":0,"scoreKev":0,"scoreToph":1.742,"scoreMcK":0,"scoreCon":0,"scoreAvg":0.436},{"id":"b7","order":"1","year":2025,"quarter":"Q2","member":"Jonathan","whiskey":"Keeper Heart 10","price":"40","proof":"","type":"","link":"","gradeJon":"C+","gradeKev":"D-","gradeToph":"B-","gradeMcK":"C+","gradeCon":"B","gradeAvg":"C","quotes":"\"Kevin, pop them titties for the theatre\" - Connor","scoreJon":5.076,"scoreKev":0.909,"scoreToph":5.909,"scoreMcK":5.076,"scoreCon":6.742,"scoreAvg":4.242},{"id":"b8","order":"10","year":2025,"quarter":"Q4","member":"McK","whiskey":"Willet Pot Still","price":"45","proof":"94","type":"Bourbon","link":"","gradeJon":"C-","gradeKev":"C-","gradeToph":"B","gradeMcK":"C-","gradeCon":"C+","gradeAvg":"C","quotes":"","scoreJon":3.409,"scoreKev":3.409,"scoreToph":6.742,"scoreMcK":3.409,"scoreCon":5.076,"scoreAvg":4.242},{"id":"b9","order":"1","year":2025,"quarter":"Q4","member":"Connor","whiskey":"Four Roses Single Barrel OBSF","price":"50","proof":"100","type":"Bourbon","link":"","gradeJon":"B-","gradeKev":"B","gradeToph":"B-","gradeMcK":"C","gradeCon":"B","gradeAvg":"B-","quotes":"","scoreJon":5.909,"scoreKev":6.742,"scoreToph":5.909,"scoreMcK":4.242,"scoreCon":6.742,"scoreAvg":5.701},{"id":"b10","order":"11","year":2025,"quarter":"Q2","member":"Topher","whiskey":"Old Pulteney","price":"50","proof":"80","type":"Scotch","link":"","gradeJon":"C-","gradeKev":"C-","gradeToph":"C+","gradeMcK":"C","gradeCon":"C-","gradeAvg":"C","quotes":"\"I've had dicks in my mouth worse than this\"","scoreJon":3.409,"scoreKev":3.409,"scoreToph":5.076,"scoreMcK":4.242,"scoreCon":3.409,"scoreAvg":4.034},{"id":"b11","order":"12","year":2024,"quarter":"Q4","member":"Connor","whiskey":"Shinobu","price":"50","proof":"86","type":"Japanese Whiskey","link":"","gradeJon":"C","gradeKev":"D-","gradeToph":"C+","gradeMcK":"C","gradeCon":"C","gradeAvg":"C","quotes":"\"It's the most bile\" - Connor","scoreJon":4.242,"scoreKev":0.909,"scoreToph":5.076,"scoreMcK":4.242,"scoreCon":4.242,"scoreAvg":3.617},{"id":"b12","order":"4","year":2025,"quarter":"Q2","member":"Topher","whiskey":"Still Austin Straight Rye","price":"50","proof":"99.6","type":"Straight Rye","link":"","gradeJon":"D+","gradeKev":"B+","gradeToph":"B","gradeMcK":"C+","gradeCon":"C+","gradeAvg":"B-","quotes":"\"It's a closeted Rye\" - McK, \"Two Ryes Fucking\" - Toph","scoreJon":2.576,"scoreKev":7.576,"scoreToph":6.742,"scoreMcK":5.076,"scoreCon":5.076,"scoreAvg":5.492},{"id":"b13","order":"3","year":2025,"quarter":"Q1","member":"McK","whiskey":"The Mistake","price":"50","proof":"","type":"Irish","link":"","gradeJon":"C+","gradeKev":"C-","gradeToph":"C+","gradeMcK":"C+","gradeCon":"D","gradeAvg":"C+","quotes":"\"Edibles make me cry and get slutty\" - Connor","scoreJon":5.076,"scoreKev":3.409,"scoreToph":5.076,"scoreMcK":5.076,"scoreCon":1.742,"scoreAvg":4.659},{"id":"b14","order":"8","year":2024,"quarter":"Q1","member":"Kbone","whiskey":"Henry McKenna 10 - Single Barrel","price":"53","proof":"","type":"Bourbon","link":"","gradeJon":"C+","gradeKev":"B","gradeToph":"C","gradeMcK":"B-","gradeCon":"","gradeAvg":"B-","quotes":"\"Both him and the PA were in there\" - Jon","scoreJon":5.076,"scoreKev":6.742,"scoreToph":4.242,"scoreMcK":5.909,"scoreCon":null,"scoreAvg":5.492},{"id":"b15","order":"8","year":2025,"quarter":"Q4","member":"Topher","whiskey":"Ardnahoe Bholsa","price":"60","proof":"100","type":"Scotch","link":"","gradeJon":"C","gradeKev":"F","gradeToph":"A-","gradeMcK":"B+","gradeCon":"B","gradeAvg":"C+","quotes":"\"I remember licking batteries and that was a good time\" - Topher","scoreJon":4.242,"scoreKev":0,"scoreToph":8.409,"scoreMcK":7.576,"scoreCon":6.742,"scoreAvg":5.057},{"id":"b16","order":"13","year":2025,"quarter":"Q2","member":"Topher","whiskey":"Ardnahoe Islay Infinite Loch","price":"60","proof":"100","type":"Scotch","link":"","gradeJon":"B","gradeKev":"F","gradeToph":"A-","gradeMcK":"B-","gradeCon":"B-","gradeAvg":"B-","quotes":"\"I HAVEN'T BEEN DOUBLE DIVORCED\" - Jon","scoreJon":6.742,"scoreKev":0,"scoreToph":8.409,"scoreMcK":5.909,"scoreCon":5.909,"scoreAvg":5.265},{"id":"b17","order":"7","year":2023,"quarter":"Q4","member":"McK","whiskey":"Talisker Skye","price":"45","proof":"","type":"Islay Single Malt","link":"","gradeJon":"B","gradeKev":"B+","gradeToph":"B+","gradeMcK":"A-","gradeCon":"","gradeAvg":"B+","quotes":"","scoreJon":6.742,"scoreKev":7.576,"scoreToph":7.576,"scoreMcK":8.409,"scoreCon":null,"scoreAvg":7.576},{"id":"b18","order":"9","year":2024,"quarter":"Q4","member":"McK","whiskey":"Nikki From The Barrel","price":"60","proof":"102","type":"Japanese Whiskey","link":"","gradeJon":"C-","gradeKev":"C","gradeToph":"B","gradeMcK":"A-","gradeCon":"B","gradeAvg":"B-","quotes":"\"This tastes like BBQ\" - Toph, \"I wanna feel something\" - Kev","scoreJon":3.409,"scoreKev":4.242,"scoreToph":6.742,"scoreMcK":8.409,"scoreCon":6.742,"scoreAvg":5.701},{"id":"b19","order":"2","year":2024,"quarter":"Q4","member":"Connor","whiskey":"Laws Four Grain Straight Bourbon","price":"65","proof":"95","type":"Whiskey","link":"","gradeJon":"D","gradeKev":"D","gradeToph":"C","gradeMcK":"C","gradeCon":"D+","gradeAvg":"C-","quotes":"","scoreJon":1.742,"scoreKev":1.742,"scoreToph":4.242,"scoreMcK":4.242,"scoreCon":2.576,"scoreAvg":2.992},{"id":"b20","order":"13","year":2024,"quarter":"Q1","member":"Topher","whiskey":"BenRaich Smoky 12","price":"70","proof":"","type":"Speyside Single Malt","link":"","gradeJon":"C-","gradeKev":"C-","gradeToph":"B","gradeMcK":"B+","gradeCon":"","gradeAvg":"B-","quotes":"\"I don't taste bile\" - Toph","scoreJon":3.409,"scoreKev":3.409,"scoreToph":6.742,"scoreMcK":7.576,"scoreCon":null,"scoreAvg":5.284},{"id":"b21","order":"5","year":2025,"quarter":"Q2","member":"Kbone","whiskey":"Still Austin Cask Strength Bourbon","price":"73","proof":"106","type":"Bourbon","link":"","gradeJon":"C","gradeKev":"B+","gradeToph":"B-","gradeMcK":"B","gradeCon":"A-","gradeAvg":"B","quotes":"\"Does that feel right?\" - Kbone","scoreJon":4.242,"scoreKev":7.576,"scoreToph":5.909,"scoreMcK":6.742,"scoreCon":8.409,"scoreAvg":6.117},{"id":"b22","order":"3","year":2024,"quarter":"Q4","member":"Mattison","whiskey":"High West Cask Collection HyVee Select","price":"60","proof":"100","type":"Whiskey","link":"","gradeJon":"B","gradeKev":"A-","gradeToph":"B","gradeMcK":"B+","gradeCon":"B+","gradeAvg":"B+","quotes":"\"How often do you weigh your weiner?\" - Kev","scoreJon":6.742,"scoreKev":8.409,"scoreToph":6.742,"scoreMcK":7.576,"scoreCon":7.576,"scoreAvg":7.367},{"id":"b23","order":"11","year":2024,"quarter":"Q1","member":"Topher","whiskey":"Talisker 10","price":"75","proof":"","type":"Islay Single Malt","link":"","gradeJon":"B-","gradeKev":"C-","gradeToph":"B","gradeMcK":"B","gradeCon":"C+","gradeAvg":"B-","quotes":"","scoreJon":5.909,"scoreKev":3.409,"scoreToph":6.742,"scoreMcK":6.742,"scoreCon":5.076,"scoreAvg":5.701},{"id":"b24","order":"3","year":2024,"quarter":"Q1","member":"McK","whiskey":"Redbreast 12","price":"75","proof":"","type":"Irish","link":"","gradeJon":"A","gradeKev":"B","gradeToph":"B-","gradeMcK":"B","gradeCon":"B+","gradeAvg":"B+","quotes":"","scoreJon":9.242,"scoreKev":6.742,"scoreToph":5.909,"scoreMcK":6.742,"scoreCon":7.576,"scoreAvg":7.159},{"id":"b25","order":"2","year":2025,"quarter":"Q2","member":"McK","whiskey":"Jefferson's Reserve Old Rum Cask Finish","price":"80","proof":"90","type":"Bourbon","link":"","gradeJon":"B","gradeKev":"B","gradeToph":"C+","gradeMcK":"B","gradeCon":"B+","gradeAvg":"B","quotes":"","scoreJon":6.742,"scoreKev":6.742,"scoreToph":5.076,"scoreMcK":6.742,"scoreCon":7.576,"scoreAvg":6.326},{"id":"b26","order":"3","year":2023,"quarter":"Q4","member":"Kbone","whiskey":"Makers Mark Hy-Vee Single Barrel Select","price":"75","proof":"","type":"Bourbon","link":"","gradeJon":"B-","gradeKev":"A-","gradeToph":"B","gradeMcK":"A","gradeCon":"","gradeAvg":"B+","quotes":"","scoreJon":5.909,"scoreKev":8.409,"scoreToph":6.742,"scoreMcK":9.242,"scoreCon":null,"scoreAvg":7.576},{"id":"b27","order":"6","year":2025,"quarter":"Q2","member":"Kbone","whiskey":"Elijah Craig Small Batch Barrel Proof","price":"79","proof":"118.2","type":"Scotch","link":"","gradeJon":"B","gradeKev":"A","gradeToph":"B+","gradeMcK":"A-","gradeCon":"A","gradeAvg":"A-","quotes":"\"I said bald not mauled\" - Connor","scoreJon":6.742,"scoreKev":9.242,"scoreToph":7.576,"scoreMcK":8.409,"scoreCon":9.242,"scoreAvg":7.992},{"id":"b28","order":"5","year":2024,"quarter":"Q1","member":"Kbone","whiskey":"Cream of Kentucky","price":"81","proof":"","type":"Rye","link":"","gradeJon":"B+","gradeKev":"B+","gradeToph":"B","gradeMcK":"D+","gradeCon":"","gradeAvg":"B","quotes":"","scoreJon":7.576,"scoreKev":7.576,"scoreToph":6.742,"scoreMcK":2.576,"scoreCon":null,"scoreAvg":6.117},{"id":"b29","order":"10","year":2024,"quarter":"Q4","member":"McK","whiskey":"Nikka Coffey Grain Whiskey","price":"80","proof":"90","type":"Japanese Whiskey","link":"","gradeJon":"B","gradeKev":"A-","gradeToph":"B-","gradeMcK":"A","gradeCon":"B+","gradeAvg":"B+","quotes":"\"Does malt mean multiple\" - Connor, \"That's a monday problem\" - Kev","scoreJon":6.742,"scoreKev":8.409,"scoreToph":5.909,"scoreMcK":9.242,"scoreCon":7.576,"scoreAvg":7.576},{"id":"b30","order":"7","year":2025,"quarter":"Q2","member":"Connor","whiskey":"Redbreast Lustau","price":"86","proof":"92","type":"Irish","link":"","gradeJon":"B+","gradeKev":"B-","gradeToph":"B","gradeMcK":"B","gradeCon":"B+","gradeAvg":"B","quotes":"\"Just change it to order, year, quarter, dick, whiskey\" - Jon","scoreJon":7.576,"scoreKev":5.909,"scoreToph":6.742,"scoreMcK":6.742,"scoreCon":7.576,"scoreAvg":6.742},{"id":"b31","order":"1","year":2025,"quarter":"Q3","member":"McK","whiskey":"Whistle Pig 10 Snout to Tail","price":"95","proof":"88","type":"Bourbon","link":"","gradeJon":"B-","gradeKev":"B-","gradeToph":"B-","gradeMcK":"B-","gradeCon":"B-","gradeAvg":"B-","quotes":"\"I haven't had a bourbon I really liked\" - Julia, Derek B","scoreJon":5.909,"scoreKev":5.909,"scoreToph":5.909,"scoreMcK":5.909,"scoreCon":5.909,"scoreAvg":5.909},{"id":"b32","order":"11","year":2024,"quarter":"Q4","member":"McK","whiskey":"Nikka Coffey Malt Whiskey","price":"80","proof":"90","type":"Japanese Whiskey","link":"","gradeJon":"B","gradeKev":"A-","gradeToph":"B","gradeMcK":"B+","gradeCon":"B","gradeAvg":"B+","quotes":"\"This is the peppermint schnapps of Japanese whiskey\" - Jon","scoreJon":6.742,"scoreKev":8.409,"scoreToph":6.742,"scoreMcK":7.576,"scoreCon":6.742,"scoreAvg":7.367},{"id":"b33","order":"6","year":2025,"quarter":"Q4","member":"Jonathan","whiskey":"High West Campfire","price":"83","proof":"97","type":"Rye","link":"","gradeJon":"A-","gradeKev":"B","gradeToph":"B+","gradeMcK":"B+","gradeCon":"B+","gradeAvg":"B+","quotes":"\"I'm not drunk yet *drops phone*\" - Topher","scoreJon":8.409,"scoreKev":6.742,"scoreToph":7.576,"scoreMcK":7.576,"scoreCon":7.576,"scoreAvg":7.576},{"id":"b34","order":"4","year":2024,"quarter":"Q4","member":"McK","whiskey":"Hibiki Harmony","price":"100","proof":"86","type":"Japanese Whiskey","link":"","gradeJon":"C-","gradeKev":"D","gradeToph":"B","gradeMcK":"A-","gradeCon":"A-","gradeAvg":"C+","quotes":"","scoreJon":3.409,"scoreKev":1.742,"scoreToph":6.742,"scoreMcK":8.409,"scoreCon":8.409,"scoreAvg":5.076},{"id":"b35","order":"12","year":2024,"quarter":"Q1","member":"Topher","whiskey":"Laphroaig Cairdeas 2023","price":"100","proof":"","type":"Islay Single Malt","link":"","gradeJon":"B-","gradeKev":"C","gradeToph":"B+","gradeMcK":"B+","gradeCon":"","gradeAvg":"B","quotes":"\"I don't twitch steam sex\" - McK","scoreJon":5.909,"scoreKev":4.242,"scoreToph":7.576,"scoreMcK":7.576,"scoreCon":null,"scoreAvg":6.326},{"id":"b36","order":"4","year":2025,"quarter":"Q4","member":"Kbone","whiskey":"Blanton's","price":"100","proof":"93","type":"Bourbon","link":"","gradeJon":"A-","gradeKev":"A-","gradeToph":"B","gradeMcK":"B","gradeCon":"B+","gradeAvg":"B+","quotes":"","scoreJon":8.409,"scoreKev":8.409,"scoreToph":6.742,"scoreMcK":6.742,"scoreCon":7.576,"scoreAvg":7.576},{"id":"b37","order":"5","year":2025,"quarter":"Q4","member":"Kbone","whiskey":"E. H. Taylor","price":"100","proof":"100","type":"Bourbon","link":"","gradeJon":"B","gradeKev":"B+","gradeToph":"B+","gradeMcK":"B+","gradeCon":"A-","gradeAvg":"B+","quotes":"\"What does a jigglypuff taste like?\" - Topher","scoreJon":6.742,"scoreKev":7.576,"scoreToph":7.576,"scoreMcK":7.576,"scoreCon":8.409,"scoreAvg":7.367},{"id":"b38","order":"9","year":2024,"quarter":"Q1","member":"McK","whiskey":"Westward Whiskey","price":"100","proof":"","type":"Whiskey","link":"","gradeJon":"F","gradeKev":"D+","gradeToph":"C+","gradeMcK":"B+","gradeCon":"F","gradeAvg":"C","quotes":"\"Smells like BO\" - Jon","scoreJon":0,"scoreKev":2.576,"scoreToph":5.076,"scoreMcK":7.576,"scoreCon":0,"scoreAvg":3.807},{"id":"b39","order":"1","year":2025,"quarter":"Q1","member":"Topher","whiskey":"Laphroaig Cardeias 2024","price":"100","proof":"104","type":"Islay Single Malt","link":"","gradeJon":"A","gradeKev":"A","gradeToph":"A","gradeMcK":"A","gradeCon":"A-","gradeAvg":"A","quotes":"How many quaffs lead to a queef? - Sarah","scoreJon":9.242,"scoreKev":9.242,"scoreToph":9.242,"scoreMcK":9.242,"scoreCon":8.409,"scoreAvg":9.242},{"id":"b40","order":"12","year":2025,"quarter":"Q2","member":"McK","whiskey":"Balvenie 14 Curious Cask","price":"120","proof":"95.6","type":"Scotch","link":"","gradeJon":"B-","gradeKev":"F","gradeToph":"B+","gradeMcK":"A-","gradeCon":"A-","gradeAvg":"B-","quotes":"\"It tasted like someone lit my dick on fire\" - Kbone","scoreJon":5.909,"scoreKev":0,"scoreToph":7.576,"scoreMcK":8.409,"scoreCon":8.409,"scoreAvg":5.473},{"id":"b41","order":"9","year":2025,"quarter":"Q4","member":"Topher","whiskey":"Laphroaig Cardeias 2025","price":"100","proof":"119","type":"Scotch","link":"","gradeJon":"B+","gradeKev":"B","gradeToph":"A","gradeMcK":"A","gradeCon":"A-","gradeAvg":"A-","quotes":"\"I think it was really good\" - Connor","scoreJon":7.576,"scoreKev":6.742,"scoreToph":9.242,"scoreMcK":9.242,"scoreCon":8.409,"scoreAvg":8.201},{"id":"b42","order":"8","year":2025,"quarter":"Q2","member":"Kbone","whiskey":"Yellow Spot","price":"107","proof":"92","type":"Irish","link":"","gradeJon":"A","gradeKev":"B","gradeToph":"B","gradeMcK":"B","gradeCon":"B+","gradeAvg":"B+","quotes":"","scoreJon":9.242,"scoreKev":6.742,"scoreToph":6.742,"scoreMcK":6.742,"scoreCon":7.576,"scoreAvg":7.367},{"id":"b43","order":"2","year":2024,"quarter":"Q1","member":"McK","whiskey":"Green Spot Quails' Gate","price":"123","proof":"","type":"Irish","link":"","gradeJon":"B-","gradeKev":"B-","gradeToph":"C+","gradeMcK":"C+","gradeCon":"","gradeAvg":"B-","quotes":"","scoreJon":5.909,"scoreKev":5.909,"scoreToph":5.076,"scoreMcK":5.076,"scoreCon":null,"scoreAvg":5.492},{"id":"b44","order":"7","year":2025,"quarter":"Q4","member":"McK","whiskey":"Talisker 14 Cask","price":"160","proof":"108","type":"Scotch","link":"","gradeJon":"B","gradeKev":"C-","gradeToph":"A-","gradeMcK":"A-","gradeCon":"B","gradeAvg":"B","quotes":"\"It's like someone baby birded whiskey into my mouth\" - Jon","scoreJon":6.742,"scoreKev":3.409,"scoreToph":8.409,"scoreMcK":8.409,"scoreCon":6.742,"scoreAvg":6.742},{"id":"b45","order":"6","year":2024,"quarter":"Q4","member":"McK","whiskey":"MaCallen 15","price":"170","proof":"86","type":"Highland Single Malt","link":"","gradeJon":"B","gradeKev":"C","gradeToph":"C","gradeMcK":"C","gradeCon":"B-","gradeAvg":"C+","quotes":"","scoreJon":6.742,"scoreKev":4.242,"scoreToph":4.242,"scoreMcK":4.242,"scoreCon":5.909,"scoreAvg":4.867},{"id":"b46","order":"10","year":2025,"quarter":"Q2","member":"Jonathan","whiskey":"Jameson Bow Street 18th Cask","price":"185","proof":"112","type":"Irish","link":"","gradeJon":"A-","gradeKev":"C-","gradeToph":"B","gradeMcK":"B","gradeCon":"B-","gradeAvg":"B","quotes":"\"That's a proof a man wants\" - Kev, \"Fuck your dry lasagna\" - Jonathan","scoreJon":8.409,"scoreKev":3.409,"scoreToph":6.742,"scoreMcK":6.742,"scoreCon":5.909,"scoreAvg":6.326},{"id":"b47","order":"1","year":2025,"quarter":"Q1","member":"McK","whiskey":"Redbreast Cask","price":"120","proof":"116","type":"Irish","link":"","gradeJon":"B+","gradeKev":"A-","gradeToph":"B+","gradeMcK":"B+","gradeCon":"B-","gradeAvg":"A-","quotes":"","scoreJon":7.576,"scoreKev":8.409,"scoreToph":7.576,"scoreMcK":7.576,"scoreCon":5.909,"scoreAvg":7.784},{"id":"b48","order":"8","year":2024,"quarter":"Q4","member":"McK","whiskey":"Yamazaki 12 Year","price":"200","proof":"86","type":"Japanese Whiskey","link":"","gradeJon":"B+","gradeKev":"D","gradeToph":"B","gradeMcK":"B+","gradeCon":"C+","gradeAvg":"B-","quotes":"","scoreJon":7.576,"scoreKev":1.742,"scoreToph":6.742,"scoreMcK":7.576,"scoreCon":5.076,"scoreAvg":5.909},{"id":"b49","order":"2","year":2025,"quarter":"Q1","member":"McK","whiskey":"Redbreast 15","price":"160","proof":"","type":"Irish","link":"","gradeJon":"A-","gradeKev":"B+","gradeToph":"B","gradeMcK":"A-","gradeCon":"A-","gradeAvg":"A-","quotes":"\"Is it weird I call them super spluters\" - Jon","scoreJon":8.409,"scoreKev":7.576,"scoreToph":6.742,"scoreMcK":8.409,"scoreCon":8.409,"scoreAvg":7.784},{"id":"b50","order":"5","year":2024,"quarter":"Q4","member":"McK","whiskey":"Hibiki Harmony Masters Select","price":"240","proof":"86","type":"Japanese Whiskey","link":"","gradeJon":"B-","gradeKev":"C-","gradeToph":"B-","gradeMcK":"B+","gradeCon":"B+","gradeAvg":"B-","quotes":"","scoreJon":5.909,"scoreKev":3.409,"scoreToph":5.909,"scoreMcK":7.576,"scoreCon":7.576,"scoreAvg":5.701},{"id":"b51","order":"6","year":2023,"quarter":"Q4","member":"Jonathan","whiskey":"Johnnie Walker Blue","price":"180","proof":"","type":"Blended Scotch","link":"","gradeJon":"A-","gradeKev":"B+","gradeToph":"B","gradeMcK":"A","gradeCon":"","gradeAvg":"A-","quotes":"","scoreJon":8.409,"scoreKev":7.576,"scoreToph":6.742,"scoreMcK":9.242,"scoreCon":null,"scoreAvg":7.992},{"id":"b52","order":"9","year":2025,"quarter":"Q2","member":"Jonathan","whiskey":"Red Spot","price":"185","proof":"92","type":"Irish","link":"","gradeJon":"A+","gradeKev":"B+","gradeToph":"B","gradeMcK":"A-","gradeCon":"A-","gradeAvg":"A-","quotes":"\"Show us your plug\" - Kev, \"Daddy smoke me\" - Kev","scoreJon":10,"scoreKev":7.576,"scoreToph":6.742,"scoreMcK":8.409,"scoreCon":8.409,"scoreAvg":8.182},{"id":"b53","order":"8","year":2023,"quarter":"Q4","member":"McK","whiskey":"Talisker 18 Year","price":"200","proof":"","type":"Island Single Malt","link":"","gradeJon":"A","gradeKev":"A-","gradeToph":"A","gradeMcK":"A+","gradeCon":"","gradeAvg":"A","quotes":"","scoreJon":9.242,"scoreKev":8.409,"scoreToph":9.242,"scoreMcK":10,"scoreCon":null,"scoreAvg":9.223},{"id":"b54","order":"11","year":2025,"quarter":"Q4","member":"McK","whiskey":"Octomore 15.1","price":"230","proof":"118","type":"Scotch","link":"","gradeJon":"A-","gradeKev":"B","gradeToph":"A","gradeMcK":"A","gradeCon":"A","gradeAvg":"A-","quotes":"","scoreJon":8.409,"scoreKev":6.742,"scoreToph":9.242,"scoreMcK":9.242,"scoreCon":9.242,"scoreAvg":8.409},{"id":"b55","order":"10","year":2023,"quarter":"Q4","member":"Jonathan","whiskey":"Ardbeg 10","price":"","proof":"","type":"Islay Single Malt","link":"https://www.ardbeg.com/","gradeJon":"B-","gradeKev":"C-","gradeToph":"B+","gradeMcK":"B-","gradeCon":"","gradeAvg":"B-","quotes":"","scoreJon":5.909,"scoreKev":3.409,"scoreToph":7.576,"scoreMcK":5.909,"scoreCon":null,"scoreAvg":5.701},{"id":"b56","order":"5","year":2023,"quarter":"Q4","member":"Jonathan","whiskey":"Glenmorangie 10","price":"","proof":"","type":"Highland Single Malt","link":"","gradeJon":"C","gradeKev":"C-","gradeToph":"C","gradeMcK":"B","gradeCon":"","gradeAvg":"C+","quotes":"","scoreJon":4.242,"scoreKev":3.409,"scoreToph":4.242,"scoreMcK":6.742,"scoreCon":null,"scoreAvg":4.659},{"id":"b57","order":"4","year":2023,"quarter":"Q4","member":"Jonathan","whiskey":"Goose Island Bourbon County Stout","price":"","proof":"","type":"Barrel Aged Beer","link":"","gradeJon":"C+","gradeKev":"C","gradeToph":"C","gradeMcK":"B+","gradeCon":"","gradeAvg":"B-","quotes":"","scoreJon":5.076,"scoreKev":4.242,"scoreToph":4.242,"scoreMcK":7.576,"scoreCon":null,"scoreAvg":5.284},{"id":"b58","order":"14","year":2024,"quarter":"Q4","member":"Topher","whiskey":"Laphroig Triple Wood","price":"300","proof":"96","type":"Islay Single Malt","link":"","gradeJon":"A","gradeKev":"B-","gradeToph":"A+","gradeMcK":"A","gradeCon":"A-","gradeAvg":"A","quotes":"\"You're like I think I tasted all the wood, and then there's more wood\" - Jon, \"Chuck me daddy\" - Kevin Sober McCaskill","scoreJon":9.242,"scoreKev":5.909,"scoreToph":10,"scoreMcK":9.242,"scoreCon":8.409,"scoreAvg":8.598},{"id":"b59","order":"9","year":2023,"quarter":"Q4","member":"Jonathan","whiskey":"Lagavulin 16","price":"","proof":"","type":"Islay Single Malt","link":"","gradeJon":"B+","gradeKev":"C+","gradeToph":"B+","gradeMcK":"B-","gradeCon":"","gradeAvg":"B","quotes":"","scoreJon":7.576,"scoreKev":5.076,"scoreToph":7.576,"scoreMcK":5.909,"scoreCon":null,"scoreAvg":6.534},{"id":"b60","order":"11","year":2023,"quarter":"Q4","member":"Jonathan","whiskey":"Laphroaig Lore","price":"","proof":"","type":"Islay Single Malt","link":"","gradeJon":"B+","gradeKev":"D","gradeToph":"A","gradeMcK":"C-","gradeCon":"","gradeAvg":"B-","quotes":"","scoreJon":7.576,"scoreKev":1.742,"scoreToph":9.242,"scoreMcK":3.409,"scoreCon":null,"scoreAvg":5.492},{"id":"b61","order":"4","year":2024,"quarter":"Q1","member":"McK","whiskey":"Redbreast 21","price":"400","proof":"","type":"Irish","link":"","gradeJon":"A-","gradeKev":"B+","gradeToph":"B","gradeMcK":"A-","gradeCon":"A-","gradeAvg":"A-","quotes":"","scoreJon":8.409,"scoreKev":7.576,"scoreToph":6.742,"scoreMcK":8.409,"scoreCon":8.409,"scoreAvg":7.784},{"id":"b62","order":"14","year":2025,"quarter":"Q2","member":"Topher","whiskey":"Laphroaig 30","price":"???","proof":"???","type":"Scotch","link":"","gradeJon":"B","gradeKev":"B-","gradeToph":"A","gradeMcK":"A+","gradeCon":"A-","gradeAvg":"A-","quotes":"\"People had ideas before you were born. Deal with it.\" - McK","scoreJon":6.742,"scoreKev":5.909,"scoreToph":9.242,"scoreMcK":10,"scoreCon":8.409,"scoreAvg":7.973},{"id":"b63","order":"1","year":2023,"quarter":"Q4","member":"Jonathan","whiskey":"Weller Special Reserve","price":"","proof":"","type":"Bourbon","link":"","gradeJon":"B","gradeKev":"B+","gradeToph":"C+","gradeMcK":"B","gradeCon":"","gradeAvg":"B","quotes":"","scoreJon":6.742,"scoreKev":7.576,"scoreToph":5.076,"scoreMcK":6.742,"scoreCon":null,"scoreAvg":6.534},{"id":"b64","order":"2","year":2023,"quarter":"Q4","member":"Jonathan","whiskey":"Old Forester Statesman","price":"","proof":"","type":"Bourbon","link":"","gradeJon":"C","gradeKev":"C","gradeToph":"C","gradeMcK":"C+","gradeCon":"","gradeAvg":"C+","quotes":"","scoreJon":4.242,"scoreKev":4.242,"scoreToph":4.242,"scoreMcK":5.076,"scoreCon":null,"scoreAvg":4.451}];
+// member sort key → display label
+const MEMBER_SORT_LABEL = {
+  scoreJon:'Jonathan', scoreKev:'Kbone', scoreToph:'Topher',
+  scoreMcK:'McK', scoreCon:'Connor', scoreMat:'Mattison'
+};
+
+function scoreToLetter(s) {
+  const t=[[9.5,'A+'],[8.8,'A'],[8.0,'A-'],[7.2,'B+'],[6.5,'B'],[5.7,'B-'],
+           [4.9,'C+'],[4.1,'C'],[3.3,'C-'],[2.5,'D+'],[1.8,'D'],[0.9,'D-'],[0,'F']];
+  for(const[v,g] of t) if(s>=v) return g;
+  return 'F';
+}
+
+// ── BASE DATA (69 entries) ───────────────────────────────────────────────────
+const BASE = [
+{"id":"b0","year":2024,"quarter":"Q4","member":"McK","whiskey":"Hitachino Espresso Stout","price":"8","proof":"","type":"Japanese Beer","link":"","gradeJon":"A-","gradeKev":"C","gradeToph":"C","gradeMcK":"A-","gradeCon":"B+","gradeAvg":"B","quotes":"\"It's sweet if you suck it\" - Toph","scoreJon":8.409,"scoreKev":4.242,"scoreToph":4.242,"scoreMcK":8.409,"scoreCon":7.576,"scoreAvg":6.576},
+{"id":"b1","year":2025,"quarter":"Q2","member":"Kbone","whiskey":"Wolcott 1792","price":"29","proof":"90","type":"Bourbon","link":"","gradeJon":"C-","gradeKev":"B-","gradeToph":"C+","gradeMcK":"C+","gradeCon":"B-","gradeAvg":"C+","quotes":"Jesus Christ it's Jason Borne - Everyone","scoreJon":3.409,"scoreKev":5.909,"scoreToph":5.076,"scoreMcK":5.076,"scoreCon":5.909,"scoreAvg":5.076},
+{"id":"b2","year":2024,"quarter":"Q1","member":"Kbone","whiskey":"Buffalo Trace","price":"30","proof":"","type":"Bourbon","link":"","gradeJon":"C","gradeKev":"B+","gradeToph":"B+","gradeMcK":"B-","gradeCon":"","gradeAvg":"B","quotes":"\"I fuck with this\" - Kevin M","scoreJon":4.242,"scoreKev":7.576,"scoreToph":7.576,"scoreMcK":5.909,"scoreCon":null,"scoreAvg":6.326},
+{"id":"b3","year":2025,"quarter":"Q4","member":"Kbone","whiskey":"Old Grand-Dad","price":"30","proof":"114","type":"Bourbon","link":"","gradeJon":"D","gradeKev":"B+","gradeToph":"B","gradeMcK":"C+","gradeCon":"C","gradeAvg":"B-","quotes":"\"My throat is numb\" - Connor, \"It's just something about the krinkle\" - McK","scoreJon":1.742,"scoreKev":7.576,"scoreToph":6.742,"scoreMcK":5.076,"scoreCon":4.242,"scoreAvg":5.076},
+{"id":"b4","year":2025,"quarter":"Q4","member":"Kbone","whiskey":"McFarlanes Reserve Select Cask Strength","price":"34","proof":"112","type":"Bourbon","link":"","gradeJon":"C-","gradeKev":"B","gradeToph":"C+","gradeMcK":"C-","gradeCon":"B","gradeAvg":"C+","quotes":"\"Tastes like mouthwash. Feels like mouthwash\" - Jon","scoreJon":3.409,"scoreKev":6.742,"scoreToph":5.076,"scoreMcK":3.409,"scoreCon":6.742,"scoreAvg":5.076},
+{"id":"b5","year":2024,"quarter":"Q4","member":"Jonathan","whiskey":"Abasolo","price":"38","proof":"86","type":"Mexican Corn","link":"","gradeJon":"B-","gradeKev":"C-","gradeToph":"B","gradeMcK":"C+","gradeCon":"B-","gradeAvg":"B-","quotes":"","scoreJon":5.909,"scoreKev":3.409,"scoreToph":6.742,"scoreMcK":5.076,"scoreCon":5.909,"scoreAvg":5.409},
+{"id":"b6","year":2025,"quarter":"Q2","member":"McK","whiskey":"Full Bore","price":"40","proof":"70","type":"Flavored Whiskey","link":"","gradeJon":"F","gradeKev":"F","gradeToph":"D","gradeMcK":"F","gradeCon":"F","gradeAvg":"D-","quotes":"\"it's something though\" - Kbone","scoreJon":0,"scoreKev":0,"scoreToph":1.742,"scoreMcK":0,"scoreCon":0,"scoreAvg":0.348},
+{"id":"b7","year":2025,"quarter":"Q2","member":"Jonathan","whiskey":"Keeper Heart 10","price":"40","proof":"","type":"","link":"","gradeJon":"C+","gradeKev":"D-","gradeToph":"B-","gradeMcK":"C+","gradeCon":"B","gradeAvg":"C","quotes":"\"Kevin, pop them titties for the theatre\" - Connor","scoreJon":5.076,"scoreKev":0.909,"scoreToph":5.909,"scoreMcK":5.076,"scoreCon":6.742,"scoreAvg":4.742},
+{"id":"b8","year":2025,"quarter":"Q4","member":"McK","whiskey":"Willet Pot Still","price":"45","proof":"94","type":"Bourbon","link":"","gradeJon":"C-","gradeKev":"C-","gradeToph":"B","gradeMcK":"C-","gradeCon":"C+","gradeAvg":"C","quotes":"","scoreJon":3.409,"scoreKev":3.409,"scoreToph":6.742,"scoreMcK":3.409,"scoreCon":5.076,"scoreAvg":4.409},
+{"id":"b9","year":2025,"quarter":"Q4","member":"Connor","whiskey":"Four Roses Single Barrel OBSF","price":"50","proof":"100","type":"Bourbon","link":"","gradeJon":"B-","gradeKev":"B","gradeToph":"B-","gradeMcK":"C","gradeCon":"B","gradeAvg":"B-","quotes":"","scoreJon":5.909,"scoreKev":6.742,"scoreToph":5.909,"scoreMcK":4.242,"scoreCon":6.742,"scoreAvg":5.909},
+{"id":"b10","year":2025,"quarter":"Q2","member":"Topher","whiskey":"Old Pulteney","price":"50","proof":"80","type":"Scotch","link":"","gradeJon":"C-","gradeKev":"C-","gradeToph":"C+","gradeMcK":"C","gradeCon":"C-","gradeAvg":"C","quotes":"\"I've had dicks in my mouth worse than this\"","scoreJon":3.409,"scoreKev":3.409,"scoreToph":5.076,"scoreMcK":4.242,"scoreCon":3.409,"scoreAvg":3.909},
+{"id":"b11","year":2024,"quarter":"Q4","member":"Connor","whiskey":"Shinobu","price":"50","proof":"86","type":"Japanese Whiskey","link":"","gradeJon":"C","gradeKev":"D-","gradeToph":"C+","gradeMcK":"C","gradeCon":"C","gradeAvg":"C","quotes":"\"It's the most bile\" - Connor","scoreJon":4.242,"scoreKev":0.909,"scoreToph":5.076,"scoreMcK":4.242,"scoreCon":4.242,"scoreAvg":3.742},
+{"id":"b12","year":2025,"quarter":"Q2","member":"Topher","whiskey":"Still Austin Straight Rye Whiskey","price":"50","proof":"99.6","type":"Straight Rye","link":"","gradeJon":"D+","gradeKev":"B+","gradeToph":"B","gradeMcK":"C+","gradeCon":"C+","gradeAvg":"B-","quotes":"\"It's a closeted Rye\" - McK, \"Two Ryes Fucking\" - Toph","scoreJon":2.576,"scoreKev":7.576,"scoreToph":6.742,"scoreMcK":5.076,"scoreCon":5.076,"scoreAvg":5.409},
+{"id":"b13","year":2025,"quarter":"Q1","member":"McK","whiskey":"The Mistake","price":"50","proof":"","type":"Irish","link":"","gradeJon":"C+","gradeKev":"C-","gradeToph":"C+","gradeMcK":"C+","gradeCon":"D","gradeAvg":"C+","quotes":"\"Edibles make me cry and get slutty\" - Connor","scoreJon":5.076,"scoreKev":3.409,"scoreToph":5.076,"scoreMcK":5.076,"scoreCon":1.742,"scoreAvg":4.076},
+{"id":"b14","year":2024,"quarter":"Q1","member":"Kbone","whiskey":"Henry McKenna 10 - Single Barrel","price":"53","proof":"","type":"Bourbon","link":"","gradeJon":"C+","gradeKev":"B","gradeToph":"C","gradeMcK":"B-","gradeCon":"","gradeAvg":"B-","quotes":"\"Both him and the PA were in there\" - Jon","scoreJon":5.076,"scoreKev":6.742,"scoreToph":4.242,"scoreMcK":5.909,"scoreCon":null,"scoreAvg":5.492},
+{"id":"b15","year":2025,"quarter":"Q4","member":"Topher","whiskey":"Ardnahoe Bholsa","price":"60","proof":"100","type":"Scotch","link":"","gradeJon":"C","gradeKev":"F","gradeToph":"A-","gradeMcK":"B+","gradeCon":"B","gradeAvg":"C+","quotes":"\"I remember licking batteries and that was a good time\" - Topher","scoreJon":4.242,"scoreKev":0,"scoreToph":8.409,"scoreMcK":7.576,"scoreCon":6.742,"scoreAvg":5.394},
+{"id":"b16","year":2025,"quarter":"Q2","member":"Topher","whiskey":"Ardnahoe Islay Infinite Loch","price":"60","proof":"100","type":"Scotch","link":"","gradeJon":"B","gradeKev":"F","gradeToph":"A-","gradeMcK":"B-","gradeCon":"B-","gradeAvg":"B-","quotes":"\"I HAVEN'T BEEN DOUBLE DIVORCED\" - Jon","scoreJon":6.742,"scoreKev":0,"scoreToph":8.409,"scoreMcK":5.909,"scoreCon":5.909,"scoreAvg":5.394},
+{"id":"b17","year":2023,"quarter":"Q4","member":"McK","whiskey":"Talisker Skye","price":"45","proof":"","type":"Islay Single Malt","link":"","gradeJon":"B","gradeKev":"B+","gradeToph":"B+","gradeMcK":"A-","gradeCon":"","gradeAvg":"B+","quotes":"","scoreJon":6.742,"scoreKev":7.576,"scoreToph":7.576,"scoreMcK":8.409,"scoreCon":null,"scoreAvg":7.576},
+{"id":"b18","year":2024,"quarter":"Q4","member":"McK","whiskey":"Nikki From The Barrel","price":"60","proof":"102","type":"Japanese Whiskey","link":"","gradeJon":"C-","gradeKev":"C","gradeToph":"B","gradeMcK":"A-","gradeCon":"B","gradeAvg":"B-","quotes":"\"This tastes like BBQ\" - Toph, \"I wanna feel something\" - Kev","scoreJon":3.409,"scoreKev":4.242,"scoreToph":6.742,"scoreMcK":8.409,"scoreCon":6.742,"scoreAvg":5.909},
+{"id":"b19","year":2024,"quarter":"Q4","member":"Connor","whiskey":"Laws Four Grain Straight Bourbon","price":"65","proof":"95","type":"Whiskey","link":"","gradeJon":"D","gradeKev":"D","gradeToph":"C","gradeMcK":"C","gradeCon":"D+","gradeAvg":"C-","quotes":"","scoreJon":1.742,"scoreKev":1.742,"scoreToph":4.242,"scoreMcK":4.242,"scoreCon":2.576,"scoreAvg":2.909},
+{"id":"b20","year":2024,"quarter":"Q1","member":"Topher","whiskey":"BenRaich Smoky 12","price":"70","proof":"","type":"Speyside Single Malt","link":"","gradeJon":"C-","gradeKev":"C-","gradeToph":"B","gradeMcK":"B+","gradeCon":"","gradeAvg":"B-","quotes":"\"I don't taste bile\" - Toph","scoreJon":3.409,"scoreKev":3.409,"scoreToph":6.742,"scoreMcK":7.576,"scoreCon":null,"scoreAvg":5.284},
+{"id":"b21","year":2024,"quarter":"Q1","member":"Jonathan","whiskey":"? (Irish)","price":"70","proof":"","type":"Irish","link":"","gradeJon":"C","gradeKev":"C","gradeToph":"C+","gradeMcK":"C","gradeCon":"C","gradeAvg":"C+","quotes":"\"Doug forever\" - Kev","scoreJon":4.242,"scoreKev":4.242,"scoreToph":5.076,"scoreMcK":4.242,"scoreCon":4.242,"scoreAvg":4.409},
+{"id":"b22","year":2025,"quarter":"Q2","member":"Kbone","whiskey":"Still Austin Cask Strength Bourbon","price":"73","proof":"106","type":"Bourbon","link":"","gradeJon":"C","gradeKev":"B+","gradeToph":"B-","gradeMcK":"B","gradeCon":"A-","gradeAvg":"B","quotes":"\"Does that feel right?\" - Kbone","scoreJon":4.242,"scoreKev":7.576,"scoreToph":5.909,"scoreMcK":6.742,"scoreCon":8.409,"scoreAvg":6.576},
+{"id":"b23","year":2024,"quarter":"Q4","member":"Mattison","whiskey":"High West Cask Collection HyVee Select","price":"60","proof":"100","type":"Whiskey","link":"","gradeJon":"B","gradeKev":"A-","gradeToph":"B","gradeMcK":"B+","gradeCon":"B+","gradeAvg":"B+","quotes":"\"How often do you weigh your weiner?\" - Kev","scoreJon":6.742,"scoreKev":8.409,"scoreToph":6.742,"scoreMcK":7.576,"scoreCon":7.576,"scoreAvg":7.409},
+{"id":"b24","year":2024,"quarter":"Q1","member":"Topher","whiskey":"Talisker 10","price":"75","proof":"","type":"Islay Single Malt","link":"","gradeJon":"B-","gradeKev":"C-","gradeToph":"B","gradeMcK":"B","gradeCon":"C+","gradeAvg":"B-","quotes":"","scoreJon":5.909,"scoreKev":3.409,"scoreToph":6.742,"scoreMcK":6.742,"scoreCon":5.076,"scoreAvg":5.576},
+{"id":"b25","year":2024,"quarter":"Q1","member":"McK","whiskey":"Redbreast 12","price":"75","proof":"","type":"Irish","link":"","gradeJon":"A","gradeKev":"B","gradeToph":"B-","gradeMcK":"B","gradeCon":"B+","gradeAvg":"B+","quotes":"","scoreJon":9.242,"scoreKev":6.742,"scoreToph":5.909,"scoreMcK":6.742,"scoreCon":7.576,"scoreAvg":7.242},
+{"id":"b26","year":2024,"quarter":"Q4","member":"Topher","whiskey":"? (Speyside Single Malt)","price":"80","proof":"90","type":"Speyside Single Malt","link":"","gradeJon":"C","gradeKev":"D","gradeToph":"B-","gradeMcK":"B-","gradeCon":"B+","gradeAvg":"C+","quotes":"\"There's liquids I don't know about\" - Kev, \"That's so far what I get\" - Connor","scoreJon":4.242,"scoreKev":1.742,"scoreToph":5.909,"scoreMcK":5.909,"scoreCon":7.576,"scoreAvg":5.076},
+{"id":"b27","year":2025,"quarter":"Q2","member":"McK","whiskey":"Jefferson's Reserve Old Rum Cask Finish","price":"80","proof":"90","type":"Bourbon","link":"","gradeJon":"B","gradeKev":"B","gradeToph":"C+","gradeMcK":"B","gradeCon":"B+","gradeAvg":"B","quotes":"","scoreJon":6.742,"scoreKev":6.742,"scoreToph":5.076,"scoreMcK":6.742,"scoreCon":7.576,"scoreAvg":6.576},
+{"id":"b28","year":2023,"quarter":"Q4","member":"Kbone","whiskey":"Makers Mark Hy-Vee Single Barrel Select","price":"75","proof":"","type":"Bourbon","link":"","gradeJon":"B-","gradeKev":"A-","gradeToph":"B","gradeMcK":"A","gradeCon":"","gradeAvg":"B+","quotes":"","scoreJon":5.909,"scoreKev":8.409,"scoreToph":6.742,"scoreMcK":9.242,"scoreCon":null,"scoreAvg":7.576},
+{"id":"b29","year":2025,"quarter":"Q2","member":"Kbone","whiskey":"Elijah Craig Small Batch Barrel Proof","price":"79","proof":"118.2","type":"Bourbon","link":"","gradeJon":"B","gradeKev":"A","gradeToph":"B+","gradeMcK":"A-","gradeCon":"A","gradeAvg":"A-","quotes":"\"I said bald not mauled\" - Connor","scoreJon":6.742,"scoreKev":9.242,"scoreToph":7.576,"scoreMcK":8.409,"scoreCon":9.242,"scoreAvg":8.242},
+{"id":"b30","year":2024,"quarter":"Q1","member":"Kbone","whiskey":"Cream of Kentucky","price":"81","proof":"","type":"Rye","link":"","gradeJon":"B+","gradeKev":"B+","gradeToph":"B","gradeMcK":"D+","gradeCon":"","gradeAvg":"B","quotes":"","scoreJon":7.576,"scoreKev":7.576,"scoreToph":6.742,"scoreMcK":2.576,"scoreCon":null,"scoreAvg":6.117},
+{"id":"b31","year":2024,"quarter":"Q4","member":"McK","whiskey":"Nikka Coffey Grain Whiskey","price":"80","proof":"90","type":"Japanese Whiskey","link":"","gradeJon":"B","gradeKev":"A-","gradeToph":"B-","gradeMcK":"A","gradeCon":"B+","gradeAvg":"B+","quotes":"\"Does malt mean multiple\" - Connor, \"That's a monday problem\" - Kev","scoreJon":6.742,"scoreKev":8.409,"scoreToph":5.909,"scoreMcK":9.242,"scoreCon":7.576,"scoreAvg":7.576},
+{"id":"b32","year":2025,"quarter":"Q2","member":"Connor","whiskey":"Redbreast Lustau","price":"86","proof":"92","type":"Irish","link":"","gradeJon":"B+","gradeKev":"B-","gradeToph":"B","gradeMcK":"B","gradeCon":"B+","gradeAvg":"B","quotes":"\"Just change it to order, year, quarter, dick, whiskey\" - Jon","scoreJon":7.576,"scoreKev":5.909,"scoreToph":6.742,"scoreMcK":6.742,"scoreCon":7.576,"scoreAvg":6.909},
+{"id":"b33","year":2025,"quarter":"Q3","member":"McK","whiskey":"Whistle Pig 10 Snout to Tail","price":"95","proof":"88","type":"Bourbon","link":"","gradeJon":"B-","gradeKev":"B-","gradeToph":"B-","gradeMcK":"B-","gradeCon":"B-","gradeAvg":"B-","quotes":"\"I haven't had a bourbon I really liked\" - Julia, Derek B","scoreJon":5.909,"scoreKev":5.909,"scoreToph":5.909,"scoreMcK":5.909,"scoreCon":5.909,"scoreAvg":5.909},
+{"id":"b34","year":2024,"quarter":"Q4","member":"McK","whiskey":"Nikka Coffey Malt Whiskey","price":"80","proof":"90","type":"Japanese Whiskey","link":"","gradeJon":"B","gradeKev":"A-","gradeToph":"B","gradeMcK":"B+","gradeCon":"B","gradeAvg":"B+","quotes":"\"This is the peppermint schnapps of Japanese whiskey\" - Jon","scoreJon":6.742,"scoreKev":8.409,"scoreToph":6.742,"scoreMcK":7.576,"scoreCon":6.742,"scoreAvg":7.242},
+{"id":"b35","year":2025,"quarter":"Q4","member":"Jonathan","whiskey":"High West Campfire","price":"83","proof":"97","type":"Rye","link":"","gradeJon":"A-","gradeKev":"B","gradeToph":"B+","gradeMcK":"B+","gradeCon":"B+","gradeAvg":"B+","quotes":"\"I'm not drunk yet *drops phone*\" - Topher","scoreJon":8.409,"scoreKev":6.742,"scoreToph":7.576,"scoreMcK":7.576,"scoreCon":7.576,"scoreAvg":7.576},
+{"id":"b36","year":2024,"quarter":"Q4","member":"McK","whiskey":"Hibiki Harmony","price":"100","proof":"86","type":"Japanese Whiskey","link":"","gradeJon":"C-","gradeKev":"D","gradeToph":"B","gradeMcK":"A-","gradeCon":"A-","gradeAvg":"C+","quotes":"","scoreJon":3.409,"scoreKev":1.742,"scoreToph":6.742,"scoreMcK":8.409,"scoreCon":8.409,"scoreAvg":5.742},
+{"id":"b37","year":2024,"quarter":"Q1","member":"Topher","whiskey":"Laphroaig Cairdeas 2023","price":"100","proof":"","type":"Islay Single Malt","link":"","gradeJon":"B-","gradeKev":"C","gradeToph":"B+","gradeMcK":"B+","gradeCon":"","gradeAvg":"B","quotes":"\"I don't twitch steam sex\" - McK","scoreJon":5.909,"scoreKev":4.242,"scoreToph":7.576,"scoreMcK":7.576,"scoreCon":null,"scoreAvg":6.326},
+{"id":"b38","year":2025,"quarter":"Q4","member":"Kbone","whiskey":"Blanton's","price":"100","proof":"93","type":"Bourbon","link":"","gradeJon":"A-","gradeKev":"A-","gradeToph":"B","gradeMcK":"B","gradeCon":"B+","gradeAvg":"B+","quotes":"","scoreJon":8.409,"scoreKev":8.409,"scoreToph":6.742,"scoreMcK":6.742,"scoreCon":7.576,"scoreAvg":7.576},
+{"id":"b39","year":2025,"quarter":"Q4","member":"Kbone","whiskey":"E. H. Taylor","price":"100","proof":"100","type":"Bourbon","link":"","gradeJon":"B","gradeKev":"B+","gradeToph":"B+","gradeMcK":"B+","gradeCon":"A-","gradeAvg":"B+","quotes":"\"What does a jigglypuff taste like?\" - Topher","scoreJon":6.742,"scoreKev":7.576,"scoreToph":7.576,"scoreMcK":7.576,"scoreCon":8.409,"scoreAvg":7.576},
+{"id":"b40","year":2024,"quarter":"Q1","member":"McK","whiskey":"Westward Whiskey","price":"100","proof":"","type":"Whiskey","link":"","gradeJon":"F","gradeKev":"D+","gradeToph":"C+","gradeMcK":"B+","gradeCon":"F","gradeAvg":"C","quotes":"\"Smells like BO\" - Jon","scoreJon":0,"scoreKev":2.576,"scoreToph":5.076,"scoreMcK":7.576,"scoreCon":0,"scoreAvg":3.045},
+{"id":"b41","year":2025,"quarter":"Q1","member":"Topher","whiskey":"Laphroaig Cardeias 2024","price":"100","proof":"104","type":"Islay Single Malt","link":"","gradeJon":"A","gradeKev":"A","gradeToph":"A","gradeMcK":"A","gradeCon":"A-","gradeAvg":"A","quotes":"How many quaffs lead to a queef? - Sarah","scoreJon":9.242,"scoreKev":9.242,"scoreToph":9.242,"scoreMcK":9.242,"scoreCon":8.409,"scoreAvg":9.076},
+{"id":"b42","year":2025,"quarter":"Q2","member":"McK","whiskey":"Balvenie 14 Curious Cask","price":"120","proof":"95.6","type":"Scotch","link":"","gradeJon":"B-","gradeKev":"F","gradeToph":"B+","gradeMcK":"A-","gradeCon":"A-","gradeAvg":"B-","quotes":"\"It tasted like someone lit my dick on fire\" - Kbone","scoreJon":5.909,"scoreKev":0,"scoreToph":7.576,"scoreMcK":8.409,"scoreCon":8.409,"scoreAvg":6.061},
+{"id":"b43","year":2025,"quarter":"Q4","member":"Topher","whiskey":"Laphroaig Cardeias 2025","price":"100","proof":"119","type":"Scotch","link":"","gradeJon":"B+","gradeKev":"B","gradeToph":"A","gradeMcK":"A","gradeCon":"A-","gradeAvg":"A-","quotes":"\"I think it was really good\" - Connor","scoreJon":7.576,"scoreKev":6.742,"scoreToph":9.242,"scoreMcK":9.242,"scoreCon":8.409,"scoreAvg":8.242},
+{"id":"b44","year":2025,"quarter":"Q2","member":"Kbone","whiskey":"Yellow Spot","price":"107","proof":"92","type":"Irish","link":"","gradeJon":"A","gradeKev":"B","gradeToph":"B","gradeMcK":"B","gradeCon":"B+","gradeAvg":"B+","quotes":"","scoreJon":9.242,"scoreKev":6.742,"scoreToph":6.742,"scoreMcK":6.742,"scoreCon":7.576,"scoreAvg":7.409},
+{"id":"b45","year":2024,"quarter":"Q1","member":"McK","whiskey":"Green Spot Quails' Gate","price":"123","proof":"","type":"Irish","link":"","gradeJon":"B-","gradeKev":"B-","gradeToph":"C+","gradeMcK":"C+","gradeCon":"","gradeAvg":"B-","quotes":"","scoreJon":5.909,"scoreKev":5.909,"scoreToph":5.076,"scoreMcK":5.076,"scoreCon":null,"scoreAvg":5.492},
+{"id":"b46","year":2024,"quarter":"Q1","member":"Jonathan","whiskey":"? (Islands Single Malt)","price":"120","proof":"","type":"Islands Single Malt","link":"","gradeJon":"A-","gradeKev":"A-","gradeToph":"B-","gradeMcK":"A-","gradeCon":"B+","gradeAvg":"A-","quotes":"","scoreJon":8.409,"scoreKev":8.409,"scoreToph":5.909,"scoreMcK":8.409,"scoreCon":7.576,"scoreAvg":7.742},
+{"id":"b47","year":2025,"quarter":"Q4","member":"McK","whiskey":"Talisker 14 Cask","price":"160","proof":"108","type":"Scotch","link":"","gradeJon":"B","gradeKev":"C-","gradeToph":"A-","gradeMcK":"A-","gradeCon":"B","gradeAvg":"B","quotes":"\"It's like someone baby birded whiskey into my mouth\" - Jon","scoreJon":6.742,"scoreKev":3.409,"scoreToph":8.409,"scoreMcK":8.409,"scoreCon":6.742,"scoreAvg":6.742},
+{"id":"b48","year":2024,"quarter":"Q4","member":"McK","whiskey":"Macallan 15","price":"170","proof":"86","type":"Highland Single Malt","link":"","gradeJon":"B","gradeKev":"C","gradeToph":"C","gradeMcK":"C","gradeCon":"B-","gradeAvg":"C+","quotes":"","scoreJon":6.742,"scoreKev":4.242,"scoreToph":4.242,"scoreMcK":4.242,"scoreCon":5.909,"scoreAvg":5.076},
+{"id":"b49","year":2025,"quarter":"Q2","member":"Jonathan","whiskey":"Jameson Bow Street 18th Cask","price":"185","proof":"112","type":"Irish","link":"","gradeJon":"A-","gradeKev":"C-","gradeToph":"B","gradeMcK":"B","gradeCon":"B-","gradeAvg":"B","quotes":"\"That's a proof a man wants\" - Kev, \"Fuck your dry lasagna\" - Jonathan","scoreJon":8.409,"scoreKev":3.409,"scoreToph":6.742,"scoreMcK":6.742,"scoreCon":5.909,"scoreAvg":6.242},
+{"id":"b50","year":2025,"quarter":"Q1","member":"McK","whiskey":"Redbreast Cask Strength","price":"120","proof":"116","type":"Irish","link":"","gradeJon":"B+","gradeKev":"A-","gradeToph":"B+","gradeMcK":"B+","gradeCon":"B-","gradeAvg":"A-","quotes":"","scoreJon":7.576,"scoreKev":8.409,"scoreToph":7.576,"scoreMcK":7.576,"scoreCon":5.909,"scoreAvg":7.409},
+{"id":"b51","year":2024,"quarter":"Q4","member":"McK","whiskey":"Yamazaki 12 Year","price":"200","proof":"86","type":"Japanese Whiskey","link":"","gradeJon":"B+","gradeKev":"D","gradeToph":"B","gradeMcK":"B+","gradeCon":"C+","gradeAvg":"B-","quotes":"","scoreJon":7.576,"scoreKev":1.742,"scoreToph":6.742,"scoreMcK":7.576,"scoreCon":5.076,"scoreAvg":5.742},
+{"id":"b52","year":2025,"quarter":"Q1","member":"McK","whiskey":"Redbreast 15","price":"160","proof":"","type":"Irish","link":"","gradeJon":"A-","gradeKev":"B+","gradeToph":"B","gradeMcK":"A-","gradeCon":"A-","gradeAvg":"A-","quotes":"\"Is it weird I call them super spluters\" - Jon","scoreJon":8.409,"scoreKev":7.576,"scoreToph":6.742,"scoreMcK":8.409,"scoreCon":8.409,"scoreAvg":7.909},
+{"id":"b53","year":2024,"quarter":"Q4","member":"McK","whiskey":"Hibiki Harmony Masters Select","price":"240","proof":"86","type":"Japanese Whiskey","link":"","gradeJon":"B-","gradeKev":"C-","gradeToph":"B-","gradeMcK":"B+","gradeCon":"B+","gradeAvg":"B-","quotes":"","scoreJon":5.909,"scoreKev":3.409,"scoreToph":5.909,"scoreMcK":7.576,"scoreCon":7.576,"scoreAvg":6.076},
+{"id":"b54","year":2023,"quarter":"Q4","member":"Jonathan","whiskey":"Johnnie Walker Blue","price":"180","proof":"","type":"Blended Scotch","link":"","gradeJon":"A-","gradeKev":"B+","gradeToph":"B","gradeMcK":"A","gradeCon":"","gradeAvg":"A-","quotes":"","scoreJon":8.409,"scoreKev":7.576,"scoreToph":6.742,"scoreMcK":9.242,"scoreCon":null,"scoreAvg":7.992},
+{"id":"b55","year":2025,"quarter":"Q2","member":"Jonathan","whiskey":"Red Spot","price":"185","proof":"92","type":"Irish","link":"","gradeJon":"A+","gradeKev":"B+","gradeToph":"B","gradeMcK":"A-","gradeCon":"A-","gradeAvg":"A-","quotes":"\"Show us your plug\" - Kev, \"Daddy smoke me\" - Kev","scoreJon":10,"scoreKev":7.576,"scoreToph":6.742,"scoreMcK":8.409,"scoreCon":8.409,"scoreAvg":8.227},
+{"id":"b56","year":2023,"quarter":"Q4","member":"McK","whiskey":"Talisker 18 Year","price":"200","proof":"","type":"Island Single Malt","link":"","gradeJon":"A","gradeKev":"A-","gradeToph":"A","gradeMcK":"A+","gradeCon":"","gradeAvg":"A","quotes":"","scoreJon":9.242,"scoreKev":8.409,"scoreToph":9.242,"scoreMcK":10,"scoreCon":null,"scoreAvg":9.223},
+{"id":"b57","year":2025,"quarter":"Q4","member":"McK","whiskey":"Octomore 15.1","price":"230","proof":"118","type":"Scotch","link":"","gradeJon":"A-","gradeKev":"B","gradeToph":"A","gradeMcK":"A","gradeCon":"A","gradeAvg":"A-","quotes":"","scoreJon":8.409,"scoreKev":6.742,"scoreToph":9.242,"scoreMcK":9.242,"scoreCon":9.242,"scoreAvg":8.575},
+{"id":"b58","year":2023,"quarter":"Q4","member":"Jonathan","whiskey":"Ardbeg 10","price":"","proof":"","type":"Islay Single Malt","link":"","gradeJon":"B-","gradeKev":"C-","gradeToph":"B+","gradeMcK":"B-","gradeCon":"","gradeAvg":"B-","quotes":"","scoreJon":5.909,"scoreKev":3.409,"scoreToph":7.576,"scoreMcK":5.909,"scoreCon":null,"scoreAvg":5.701},
+{"id":"b59","year":2023,"quarter":"Q4","member":"Jonathan","whiskey":"Glenmorangie 10","price":"","proof":"","type":"Highland Single Malt","link":"","gradeJon":"C","gradeKev":"C-","gradeToph":"C","gradeMcK":"B","gradeCon":"","gradeAvg":"C+","quotes":"","scoreJon":4.242,"scoreKev":3.409,"scoreToph":4.242,"scoreMcK":6.742,"scoreCon":null,"scoreAvg":4.659},
+{"id":"b60","year":2023,"quarter":"Q4","member":"Jonathan","whiskey":"Goose Island Bourbon County Stout","price":"","proof":"","type":"Barrel Aged Beer","link":"","gradeJon":"C+","gradeKev":"C","gradeToph":"C","gradeMcK":"B+","gradeCon":"","gradeAvg":"B-","quotes":"","scoreJon":5.076,"scoreKev":4.242,"scoreToph":4.242,"scoreMcK":7.576,"scoreCon":null,"scoreAvg":5.284},
+{"id":"b61","year":2024,"quarter":"Q4","member":"Topher","whiskey":"Laphroig Triple Wood","price":"300","proof":"96","type":"Islay Single Malt","link":"","gradeJon":"A","gradeKev":"B-","gradeToph":"A+","gradeMcK":"A","gradeCon":"A-","gradeAvg":"A","quotes":"\"You're like I think I tasted all the wood, and then there's more wood\" - Jon, \"Chuck me daddy\" - Kevin Sober McCaskill","scoreJon":9.242,"scoreKev":5.909,"scoreToph":10,"scoreMcK":9.242,"scoreCon":8.409,"scoreAvg":8.560},
+{"id":"b62","year":2023,"quarter":"Q4","member":"Jonathan","whiskey":"Lagavulin 16","price":"","proof":"","type":"Islay Single Malt","link":"","gradeJon":"B+","gradeKev":"C+","gradeToph":"B+","gradeMcK":"B-","gradeCon":"","gradeAvg":"B","quotes":"","scoreJon":7.576,"scoreKev":5.076,"scoreToph":7.576,"scoreMcK":5.909,"scoreCon":null,"scoreAvg":6.534},
+{"id":"b63","year":2023,"quarter":"Q4","member":"Jonathan","whiskey":"Laphroaig Lore","price":"","proof":"","type":"Islay Single Malt","link":"","gradeJon":"B+","gradeKev":"D","gradeToph":"A","gradeMcK":"C-","gradeCon":"","gradeAvg":"B-","quotes":"","scoreJon":7.576,"scoreKev":1.742,"scoreToph":9.242,"scoreMcK":3.409,"scoreCon":null,"scoreAvg":5.492},
+{"id":"b64","year":2024,"quarter":"Q1","member":"Jonathan","whiskey":"? (Rye)","price":"300","proof":"","type":"Rye","link":"","gradeJon":"A-","gradeKev":"A-","gradeToph":"A","gradeMcK":"B+","gradeCon":"B-","gradeAvg":"A-","quotes":"","scoreJon":8.409,"scoreKev":8.409,"scoreToph":9.242,"scoreMcK":7.576,"scoreCon":5.909,"scoreAvg":7.909},
+{"id":"b65","year":2024,"quarter":"Q1","member":"McK","whiskey":"Redbreast 21","price":"400","proof":"","type":"Irish","link":"","gradeJon":"A-","gradeKev":"B+","gradeToph":"B","gradeMcK":"A-","gradeCon":"A-","gradeAvg":"A-","quotes":"","scoreJon":8.409,"scoreKev":7.576,"scoreToph":6.742,"scoreMcK":8.409,"scoreCon":8.409,"scoreAvg":7.909},
+{"id":"b66","year":2025,"quarter":"Q2","member":"Topher","whiskey":"Laphroaig 30","price":"???","proof":"???","type":"Scotch","link":"","gradeJon":"B","gradeKev":"B-","gradeToph":"A","gradeMcK":"A+","gradeCon":"A-","gradeAvg":"A-","quotes":"\"People had ideas before you were born. Deal with it.\" - McK","scoreJon":6.742,"scoreKev":5.909,"scoreToph":9.242,"scoreMcK":10,"scoreCon":8.409,"scoreAvg":8.060},
+{"id":"b67","year":2023,"quarter":"Q4","member":"Jonathan","whiskey":"Weller Special Reserve","price":"","proof":"","type":"Bourbon","link":"","gradeJon":"B","gradeKev":"B+","gradeToph":"C+","gradeMcK":"B","gradeCon":"","gradeAvg":"B","quotes":"","scoreJon":6.742,"scoreKev":7.576,"scoreToph":5.076,"scoreMcK":6.742,"scoreCon":null,"scoreAvg":6.534},
+{"id":"b68","year":2023,"quarter":"Q4","member":"Jonathan","whiskey":"Old Forester Statesman","price":"","proof":"","type":"Bourbon","link":"","gradeJon":"C","gradeKev":"C","gradeToph":"C","gradeMcK":"C+","gradeCon":"","gradeAvg":"C+","quotes":"","scoreJon":4.242,"scoreKev":4.242,"scoreToph":4.242,"scoreMcK":5.076,"scoreCon":null,"scoreAvg":4.451}
+];
 
 // ── STATE ────────────────────────────────────────────────────────────────────
 let customEntries = [];
-let activeMember = '';
+let activeMemberSort = ''; // e.g. 'scoreJon' — sorts by that member's score
 
-function loadCustom(){
-  try{ customEntries = JSON.parse(localStorage.getItem('gfwc_entries')||'[]'); }
-  catch(e){ customEntries = []; }
-}
-function saveCustom(){
-  localStorage.setItem('gfwc_entries', JSON.stringify(customEntries));
-}
-function getAllData(){
-  return [...BASE, ...customEntries];
-}
+function loadCustom(){ try{ customEntries=JSON.parse(localStorage.getItem('gfwc_entries')||'[]'); }catch(e){ customEntries=[]; } }
+function saveCustom(){ localStorage.setItem('gfwc_entries',JSON.stringify(customEntries)); }
+function getAllData(){ return [...BASE,...customEntries]; }
 
 function normMember(m){
   const lc=(m||'').toLowerCase();
-  if(lc==='kbone'||lc==='kev'||lc==='kevin') return 'Kbone';
+  if(lc==='kbone'||lc==='kev') return 'Kbone';
   if(lc==='jonathan'||lc==='jon') return 'Jonathan';
   if(lc==='topher'||lc==='toph') return 'Topher';
-  if(lc==='mck'||lc==='mccaskill') return 'McK';
+  if(lc==='mck') return 'McK';
   if(lc==='connor'||lc==='con') return 'Connor';
   if(lc==='mattison') return 'Mattison';
   return m;
 }
 
-// ── INIT ────────────────────────────────────────────────────────────────────
+// ── INIT ─────────────────────────────────────────────────────────────────────
 loadCustom();
 
-const allTypes = [...new Set(getAllData().map(d=>d.type).filter(Boolean))].sort();
-const ftEl = document.getElementById('filterType');
-allTypes.forEach(t=>{ const o=document.createElement('option'); o.value=t; o.textContent=t; ftEl.appendChild(o); });
-document.getElementById('typeList').innerHTML = allTypes.map(t=>`<option value="${t}">`).join('');
+const allTypes=[...new Set(getAllData().map(d=>d.type).filter(Boolean))].sort();
+const ftEl=document.getElementById('filterType');
+allTypes.forEach(t=>{ const o=document.createElement('option');o.value=t;o.textContent=t;ftEl.appendChild(o); });
+document.getElementById('typeList').innerHTML=allTypes.map(t=>`<option value="${t}">`).join('');
 
-const allYears = [...new Set(getAllData().map(d=>d.year).filter(Boolean))].sort((a,b)=>b-a);
-const fyEl = document.getElementById('filterYear');
-allYears.forEach(y=>{ const o=document.createElement('option'); o.value=y; o.textContent=y; fyEl.appendChild(o); });
+const allYears=[...new Set(getAllData().map(d=>d.year).filter(Boolean))].sort((a,b)=>b-a);
+const fyEl=document.getElementById('filterYear');
+allYears.forEach(y=>{ const o=document.createElement('option');o.value=y;o.textContent=y;fyEl.appendChild(o); });
 
-// ── MEMBER TABS ──────────────────────────────────────────────────────────────
-function setMember(el, m){
-  activeMember = m;
+// ── MEMBER TABS ───────────────────────────────────────────────────────────────
+function setMemberSort(el, sk){
+  activeMemberSort = sk;
   document.querySelectorAll('.mtab').forEach(t=>t.classList.remove('active'));
   el.classList.add('active');
+  // when a member tab is active, override the sort dropdown to their score
+  if(sk) document.getElementById('sortBy').value='scoreAvg-desc';
   render();
 }
 
-function updateTabCounts(){
-  const data = getAllData();
-  const members = ['', 'Jonathan','Kbone','Topher','McK','Connor','Mattison'];
-  members.forEach(m => {
-    const count = m ? data.filter(d=>normMember(d.member)===m).length : data.length;
-    const el = document.getElementById('cnt-'+(m||'all'));
-    if(el) el.textContent = count;
-  });
-}
-
-// ── GRADE HELPERS ────────────────────────────────────────────────────────────
+// ── GRADE HELPERS ─────────────────────────────────────────────────────────────
 function gradeClass(g){
   if(!g) return 'gNone';
-  const map={'A+':'A-plus','A':'A','A-':'A-minus','B+':'B-plus','B':'B','B-':'B-minus',
-    'C+':'C-plus','C':'C','C-':'C-minus','D+':'D-plus','D':'D','D-':'D-minus','F':'F'};
-  return 'g'+(map[g]||'None');
+  const m={'A+':'Aplus','A':'A','A-':'Aminus','B+':'Bplus','B':'B','B-':'Bminus','C+':'Cplus','C':'C','C-':'Cminus','D+':'Dplus','D':'D','D-':'Dminus','F':'F'};
+  return 'g'+(m[g]||'None');
 }
 function barColor(s){
   if(s>=8.5) return '#f0c040';
@@ -600,29 +419,29 @@ function barColor(s){
   if(s>=2.5) return '#d08040';
   return '#c04040';
 }
-function scoreNum(v){ return (v===null||v===undefined||v==='')?null:parseFloat(v); }
+function sn(v){ return (v===null||v===undefined||v==='') ? null : parseFloat(v)||0; }
 
-function computeAvg(d){
-  const vals = MEMBERS.map(m=>scoreNum(d[m.sk])).filter(v=>v!==null&&v>0);
-  if(!vals.length) return 0;
-  return vals.reduce((a,b)=>a+b,0)/vals.length;
-}
-
-// ── RENDER ───────────────────────────────────────────────────────────────────
+// ── RENDER ────────────────────────────────────────────────────────────────────
 function getFiltered(){
-  const q = document.getElementById('search').value.toLowerCase().trim();
-  const type = document.getElementById('filterType').value;
-  const year = document.getElementById('filterYear').value;
-  const sort = document.getElementById('sortBy').value;
+  const q=document.getElementById('search').value.toLowerCase().trim();
+  const type=document.getElementById('filterType').value;
+  const year=document.getElementById('filterYear').value;
+  const member=document.getElementById('filterMember').value;
+  const sortSel=document.getElementById('sortBy').value;
+  const [sk,sd]=sortSel.split('-');
 
-  let items = getAllData().map(d=>({
+  // active sort key: member tab overrides dropdown
+  const effectiveSortKey = activeMemberSort || sk;
+  const effectiveSortDir = activeMemberSort ? 'desc' : sd;
+
+  let items=getAllData().map(d=>({
     ...d,
-    member: normMember(d.member),
-    _avg: scoreNum(d.scoreAvg) ?? computeAvg(d)
+    member:normMember(d.member),
+    _avg:sn(d.scoreAvg)??0,
   })).filter(d=>{
-    if(activeMember && d.member !== activeMember) return false;
-    if(type && d.type !== type) return false;
-    if(year && String(d.year) !== String(year)) return false;
+    if(member && d.member!==member) return false;
+    if(type && d.type!==type) return false;
+    if(year && String(d.year)!==String(year)) return false;
     if(q){
       const hay=[d.whiskey,d.member,d.type,d.quotes,d.gradeAvg,d.quarter,String(d.year)].join(' ').toLowerCase();
       if(!hay.includes(q)) return false;
@@ -630,71 +449,92 @@ function getFiltered(){
     return true;
   });
 
-  const [sk,sd]=sort.split('-');
   items.sort((a,b)=>{
     let av,bv;
-    if(sk==='scoreAvg'){av=a._avg;bv=b._avg;}
-    else if(sk==='name'){av=a.whiskey.toLowerCase();bv=b.whiskey.toLowerCase();}
-    else if(sk==='price'){av=parseFloat(a.price)||0;bv=parseFloat(b.price)||0;}
-    else if(sk==='year'){av=a.year*10+parseInt((a.quarter||'Q0').slice(1));bv=b.year*10+parseInt((b.quarter||'Q0').slice(1));}
-    else{av=scoreNum(a[sk])??0;bv=scoreNum(b[sk])??0;}
-    return sd==='asc'?(av<bv?-1:av>bv?1:0):(av>bv?-1:av<bv?1:0);
+    if(effectiveSortKey==='scoreAvg'||!effectiveSortKey){ av=a._avg; bv=b._avg; }
+    else if(effectiveSortKey==='name'){ av=a.whiskey.toLowerCase(); bv=b.whiskey.toLowerCase(); }
+    else if(effectiveSortKey==='price'){ av=parseFloat(a.price)||0; bv=parseFloat(b.price)||0; }
+    else if(effectiveSortKey==='year'){ av=a.year*10+parseInt((a.quarter||'Q0').slice(1)); bv=b.year*10+parseInt((b.quarter||'Q0').slice(1)); }
+    else{ // member score key like 'scoreJon'
+      av=sn(a[effectiveSortKey])??-1;
+      bv=sn(b[effectiveSortKey])??-1;
+    }
+    return effectiveSortDir==='asc'?(av<bv?-1:av>bv?1:0):(av>bv?-1:av<bv?1:0);
   });
+
   return items;
 }
 
-function renderCard(d){
-  const avg = d._avg;
-  const avgS = avg.toFixed(1);
-  const avgLetter = d.gradeAvg || scoreToLetterAvg(avg);
-  const bc = barColor(avg);
-  const isCustom = d.id && d.id.startsWith('c');
+function renderCard(d, rank){
+  const avg=d._avg;
+  const avgLetter=d.gradeAvg||scoreToLetter(avg);
+  const bc=barColor(avg);
+  const isCustom=d.id&&d.id.startsWith('c');
 
-  const scoresHtml = MEMBERS.map(m=>{
-    const grade = d[m.gk]||'';
-    const score = scoreNum(d[m.sk]);
-    const hasScore = score!==null;
-    const barW = hasScore?Math.round((score/10)*100):0;
-    return `<div class="sc">
-      <div class="sc-name">${m.label}</div>
+  // when a member tab is active, spotlight their personal score
+  let spotlightHtml='';
+  if(activeMemberSort){
+    const mem=MEMBERS.find(m=>m.sk===activeMemberSort);
+    if(mem){
+      const grade=d[mem.gk]||'';
+      const score=sn(d[mem.sk]);
+      const sc=barColor(score??0);
+      spotlightHtml=`<div class="spotlight">
+        <div class="spotlight-grade ${gradeClass(grade)}" style="color:${sc}">${grade||'—'}</div>
+        <div>
+          <div class="spotlight-score" style="color:${sc}">${score!==null?score.toFixed(1):'—'}<span style="font-size:.7rem;color:var(--text-dim)">/10</span></div>
+          <div class="spotlight-label">${mem.label}'s score</div>
+        </div>
+        <div style="margin-left:auto;text-align:right">
+          <div style="font-size:.72rem;color:var(--text-dim)">avg</div>
+          <div style="font-size:.88rem;font-weight:600;color:${bc}">${avg.toFixed(1)}</div>
+        </div>
+      </div>`;
+    }
+  }
+
+  const scoresHtml=MEMBERS.map(m=>{
+    const grade=d[m.gk]||'';
+    const score=sn(d[m.sk]);
+    const active=activeMemberSort===m.sk;
+    const barW=score!==null?Math.round((score/10)*100):0;
+    return `<div class="sc" style="${active?'opacity:1':'opacity:.7'}">
+      <div class="sc-name" style="${active?'color:var(--text-mid);font-weight:700':''}">${m.label}</div>
       <div class="sc-grade ${gradeClass(grade)}">${grade||'—'}</div>
       <div class="bar-wrap"><div class="bar" style="width:${barW}%;background:${bc}"></div></div>
-      <div class="sc-num">${hasScore?score.toFixed(1):'—'}</div>
+      <div class="sc-num">${score!==null?score.toFixed(1):'—'}</div>
     </div>`;
   }).join('');
 
-  const nameHtml = d.link
-    ? `<a href="${esc(d.link)}" target="_blank" rel="noopener">${esc(d.whiskey)}</a>`
-    : esc(d.whiskey);
+  const nameHtml=d.link?`<a href="${esc(d.link)}" target="_blank" rel="noopener">${esc(d.whiskey)}</a>`:esc(d.whiskey);
+  const priceDisp=d.price==='???'?'???':parseFloat(d.price)?'$'+Math.round(parseFloat(d.price)):'';
+  const proofDisp=d.proof&&d.proof!=='???'&&parseFloat(d.proof)?parseFloat(d.proof)+'° proof':'';
 
-  const priceDisp = d.price==='???'?'???':parseFloat(d.price)?'$'+Math.round(parseFloat(d.price)):'—';
-  const proofDisp = d.proof&&d.proof!=='???'&&parseFloat(d.proof)?parseFloat(d.proof)+'°':null;
-
-  const tags = [
+  const tags=[
     d.type?`<span class="tag tag-type">${esc(d.type)}</span>`:'',
     `<span class="tag tag-member">by ${esc(d.member)}</span>`,
     `<span class="tag tag-season">${esc(d.quarter)} ${d.year}</span>`,
-    priceDisp&&priceDisp!=='—'?`<span class="tag tag-price">${priceDisp}</span>`:'',
-    proofDisp?`<span class="tag tag-proof">${proofDisp} proof</span>`:'',
+    priceDisp?`<span class="tag tag-price">${priceDisp}</span>`:'',
+    proofDisp?`<span class="tag tag-proof">${proofDisp}</span>`:'',
   ].filter(Boolean).join('');
 
-  const quoteHtml = d.quotes && typeof d.quotes==='string' && d.quotes.trim()
-    ? `<div class="quote">${esc(d.quotes)}</div>` : '';
-
-  const customBadge = isCustom?`<span class="custom-badge">new</span>`:'';
+  const quoteHtml=d.quotes&&typeof d.quotes==='string'&&d.quotes.trim()
+    ?`<div class="quote">${esc(d.quotes)}</div>`:'';
 
   return `<div class="card" id="card-${d.id}">
     <div class="card-top">
+      <div class="rank-num">${rank}</div>
       <div class="score-bubble">
-        <div class="num" style="color:${bc}">${avgS}</div>
+        <div class="num" style="color:${bc}">${avg.toFixed(1)}</div>
         <div class="denom">/10</div>
         <div class="letter" style="color:${bc}">${avgLetter}</div>
       </div>
       <div class="card-info">
-        <div class="whiskey-name">${nameHtml}${customBadge}</div>
+        <div class="whiskey-name">${nameHtml}${isCustom?'<span class="custom-badge">new</span>':''}</div>
         <div class="tags">${tags}</div>
       </div>
     </div>
+    ${spotlightHtml}
     <div class="scores-row">${scoresHtml}</div>
     ${quoteHtml}
     <div class="card-footer">
@@ -707,216 +547,123 @@ function renderCard(d){
 function esc(s){ return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
 
 function render(){
-  const items = getFiltered();
-  document.getElementById('countInfo').textContent = `${items.length} of ${getAllData().length}`;
-  updateTabCounts();
-  const grid = document.getElementById('grid');
-  if(!items.length){
-    grid.innerHTML = '<div class="no-results">No whiskies match your search.</div>';
-    return;
-  }
-  grid.innerHTML = items.map(renderCard).join('');
+  const items=getFiltered();
+  const total=getAllData().length;
+  const label=activeMemberSort?`Sorted by ${MEMBER_SORT_LABEL[activeMemberSort]}'s ratings · `:'';
+  document.getElementById('countInfo').textContent=`${label}${items.length} of ${total}`;
+  const grid=document.getElementById('grid');
+  if(!items.length){ grid.innerHTML='<div class="no-results">No whiskies match your search.</div>'; return; }
+  grid.innerHTML=items.map((d,i)=>renderCard(d,i+1)).join('');
 }
 
-// ── ADD / EDIT MODAL ─────────────────────────────────────────────────────────
+// ── ADD / EDIT MODAL ──────────────────────────────────────────────────────────
 function openAddModal(){
-  document.getElementById('addModalTitle').textContent = 'Add Whiskey';
-  document.getElementById('editId').value = '';
-  document.getElementById('fName').value = '';
-  document.getElementById('fMember').value = 'McK';
-  document.getElementById('fType').value = '';
-  document.getElementById('fYear').value = new Date().getFullYear();
-  document.getElementById('fQuarter').value = 'Q'+(Math.ceil((new Date().getMonth()+1)/3));
-  document.getElementById('fPrice').value = '';
-  document.getElementById('fProof').value = '';
-  document.getElementById('fLink').value = '';
-  document.getElementById('editDeleteRow').style.display = 'none';
+  document.getElementById('addModalTitle').textContent='Add Whiskey';
+  document.getElementById('editId').value='';
+  ['fName','fType','fPrice','fProof','fLink'].forEach(id=>document.getElementById(id).value='');
+  document.getElementById('fMember').value='McK';
+  document.getElementById('fYear').value=new Date().getFullYear();
+  document.getElementById('fQuarter').value='Q'+Math.ceil((new Date().getMonth()+1)/3);
+  document.getElementById('editDeleteRow').style.display='none';
   openModal('addOverlay');
 }
-
 function openEditModal(id){
-  const d = customEntries.find(e=>e.id===id);
-  if(!d) return;
-  document.getElementById('addModalTitle').textContent = 'Edit Whiskey';
-  document.getElementById('editId').value = id;
-  document.getElementById('fName').value = d.whiskey||'';
-  document.getElementById('fMember').value = d.member||'McK';
-  document.getElementById('fType').value = d.type||'';
-  document.getElementById('fYear').value = d.year||'';
-  document.getElementById('fQuarter').value = d.quarter||'Q1';
-  document.getElementById('fPrice').value = d.price||'';
-  document.getElementById('fProof').value = d.proof||'';
-  document.getElementById('fLink').value = d.link||'';
-  document.getElementById('editDeleteRow').style.display = 'block';
+  const d=customEntries.find(e=>e.id===id); if(!d) return;
+  document.getElementById('addModalTitle').textContent='Edit Whiskey';
+  document.getElementById('editId').value=id;
+  document.getElementById('fName').value=d.whiskey||'';
+  document.getElementById('fMember').value=d.member||'McK';
+  document.getElementById('fType').value=d.type||'';
+  document.getElementById('fYear').value=d.year||'';
+  document.getElementById('fQuarter').value=d.quarter||'Q1';
+  document.getElementById('fPrice').value=d.price||'';
+  document.getElementById('fProof').value=d.proof||'';
+  document.getElementById('fLink').value=d.link||'';
+  document.getElementById('editDeleteRow').style.display='block';
   openModal('addOverlay');
 }
-
 function saveWhiskey(){
-  const name = document.getElementById('fName').value.trim();
+  const name=document.getElementById('fName').value.trim();
   if(!name){ document.getElementById('fName').focus(); return; }
-  const editId = document.getElementById('editId').value;
-  const entry = {
-    id: editId || 'c'+Date.now(),
-    order: '',
-    year: parseInt(document.getElementById('fYear').value)||new Date().getFullYear(),
-    quarter: document.getElementById('fQuarter').value,
-    member: document.getElementById('fMember').value,
-    whiskey: name,
-    price: document.getElementById('fPrice').value.trim(),
-    proof: document.getElementById('fProof').value.trim(),
-    type: document.getElementById('fType').value.trim(),
-    link: document.getElementById('fLink').value.trim(),
+  const editId=document.getElementById('editId').value;
+  const entry={
+    id:editId||'c'+Date.now(),
+    year:parseInt(document.getElementById('fYear').value)||new Date().getFullYear(),
+    quarter:document.getElementById('fQuarter').value,
+    member:document.getElementById('fMember').value,
+    whiskey:name, price:document.getElementById('fPrice').value.trim(),
+    proof:document.getElementById('fProof').value.trim(),
+    type:document.getElementById('fType').value.trim(),
+    link:document.getElementById('fLink').value.trim(),
     gradeJon:'',gradeKev:'',gradeToph:'',gradeMcK:'',gradeCon:'',gradeAvg:'',
-    scoreJon:null,scoreKev:null,scoreToph:null,scoreMcK:null,scoreCon:null,scoreAvg:0,
-    quotes: '',
+    scoreJon:null,scoreKev:null,scoreToph:null,scoreMcK:null,scoreCon:null,scoreAvg:0,quotes:'',
   };
   if(editId){
-    const existing = customEntries.find(e=>e.id===editId);
-    if(existing){
-      // preserve existing scores
-      Object.assign(entry, {
-        gradeJon:existing.gradeJon,gradeKev:existing.gradeKev,
-        gradeToph:existing.gradeToph,gradeMcK:existing.gradeMcK,gradeCon:existing.gradeCon,
-        gradeAvg:existing.gradeAvg,scoreJon:existing.scoreJon,scoreKev:existing.scoreKev,
-        scoreToph:existing.scoreToph,scoreMcK:existing.scoreMcK,scoreCon:existing.scoreCon,
-        scoreAvg:existing.scoreAvg,quotes:existing.quotes,
-      });
-      const idx = customEntries.findIndex(e=>e.id===editId);
-      customEntries[idx] = entry;
-    }
-  } else {
-    customEntries.push(entry);
-  }
-  saveCustom();
-  closeModal('addOverlay');
-  render();
-  // open score modal for the new entry
-  openScoreModal(entry.id);
+    const existing=customEntries.find(e=>e.id===editId);
+    if(existing) Object.assign(entry,{gradeJon:existing.gradeJon,gradeKev:existing.gradeKev,gradeToph:existing.gradeToph,gradeMcK:existing.gradeMcK,gradeCon:existing.gradeCon,gradeAvg:existing.gradeAvg,scoreJon:existing.scoreJon,scoreKev:existing.scoreKev,scoreToph:existing.scoreToph,scoreMcK:existing.scoreMcK,scoreCon:existing.scoreCon,scoreAvg:existing.scoreAvg,quotes:existing.quotes});
+    customEntries[customEntries.findIndex(e=>e.id===editId)]=entry;
+  } else { customEntries.push(entry); }
+  saveCustom(); closeModal('addOverlay'); render(); openScoreModal(entry.id);
 }
-
 function deleteEntry(){
-  const id = document.getElementById('editId').value;
-  if(!id) return;
+  const id=document.getElementById('editId').value; if(!id) return;
   if(!confirm('Delete this entry?')) return;
-  customEntries = customEntries.filter(e=>e.id!==id);
-  saveCustom();
-  closeModal('addOverlay');
-  render();
+  customEntries=customEntries.filter(e=>e.id!==id); saveCustom(); closeModal('addOverlay'); render();
 }
 
-// ── SCORE MODAL ──────────────────────────────────────────────────────────────
+// ── SCORE MODAL ───────────────────────────────────────────────────────────────
 function openScoreModal(id){
-  const all = getAllData();
-  const d = all.find(e=>e.id===id);
-  if(!d) return;
-  document.getElementById('scoreTargetId').value = id;
-  document.getElementById('scoreModalTitle').textContent = 'Score: ' + d.whiskey;
-  document.getElementById('scoreModalSub').textContent = `${d.quarter} ${d.year} · Brought by ${normMember(d.member)}`;
-  document.getElementById('fQuote').value = d.quotes||'';
-
-  const entries = document.getElementById('scoreEntries');
-  entries.innerHTML = MEMBERS.map(m=>{
-    const cur = d[m.gk]||'';
-    const opts = ['','...not present',...GRADES].map(g=>{
-      const label = g===''?'— not scored':g==='...not present'?'— not present':g;
-      return `<option value="${g}" ${g===cur?'selected':''}>${label}</option>`;
-    }).join('');
-    return `<div class="score-entry">
-      <span class="mem-name">${m.label}</span>
-      <select class="grade-select" id="sg-${m.key}">${opts}</select>
-    </div>`;
+  const d=getAllData().find(e=>e.id===id); if(!d) return;
+  document.getElementById('scoreTargetId').value=id;
+  document.getElementById('scoreModalTitle').textContent=d.whiskey;
+  document.getElementById('scoreModalSub').textContent=`${d.quarter} ${d.year} · Brought by ${normMember(d.member)}`;
+  document.getElementById('fQuote').value=d.quotes||'';
+  document.getElementById('scoreEntries').innerHTML=MEMBERS.map(m=>{
+    const cur=d[m.gk]||'';
+    const opts=['',  ...GRADES].map(g=>`<option value="${g}" ${g===cur?'selected':''}>${g||'— not scored'}</option>`).join('');
+    return `<div class="score-entry"><span class="mem-name">${m.label}</span><select class="grade-select" id="sg-${m.key}">${opts}</select></div>`;
   }).join('');
-
   openModal('scoreOverlay');
 }
-
 function saveScores(){
-  const id = document.getElementById('scoreTargetId').value;
-  const quote = document.getElementById('fQuote').value.trim();
-
-  const gradeVals = {};
-  const scoreVals = {};
-  MEMBERS.forEach(m=>{
-    const g = document.getElementById('sg-'+m.key).value;
-    gradeVals[m.gk] = g==='...' ? '' : g;
-    scoreVals[m.sk] = (g&&g!=='...'&&GRADE_SCORE[g]!==undefined) ? GRADE_SCORE[g] : null;
-  });
-
-  const validScores = Object.values(scoreVals).filter(v=>v!==null);
-  const avg = validScores.length ? validScores.reduce((a,b)=>a+b,0)/validScores.length : 0;
-  const avgLetter = scoreToLetterAvg(avg);
-
-  const update = { ...gradeVals, ...scoreVals, gradeAvg: avgLetter, scoreAvg: avg, quotes: quote };
-
-  // try custom first
-  const ci = customEntries.findIndex(e=>e.id===id);
-  if(ci>=0){
-    customEntries[ci] = {...customEntries[ci], ...update};
-    saveCustom();
-  } else {
-    // it's a base entry — copy to custom with overrides
-    const base = BASE.find(e=>e.id===id);
-    if(base){
-      const overrides = JSON.parse(localStorage.getItem('gfwc_overrides')||'{}');
-      overrides[id] = update;
-      localStorage.setItem('gfwc_overrides', JSON.stringify(overrides));
-      // apply to base copy — we'll handle this in getAllData
-    }
-  }
-
-  closeModal('scoreOverlay');
-  render();
+  const id=document.getElementById('scoreTargetId').value;
+  const quote=document.getElementById('fQuote').value.trim();
+  const grades={}, scores={};
+  MEMBERS.forEach(m=>{ const g=document.getElementById('sg-'+m.key).value; grades[m.gk]=g; scores[m.sk]=g&&GRADE_SCORE[g]!==undefined?GRADE_SCORE[g]:null; });
+  const vals=Object.values(scores).filter(v=>v!==null);
+  const avg=vals.length?vals.reduce((a,b)=>a+b,0)/vals.length:0;
+  const update={...grades,...scores,gradeAvg:scoreToLetter(avg),scoreAvg:avg,quotes:quote};
+  const ci=customEntries.findIndex(e=>e.id===id);
+  if(ci>=0){ customEntries[ci]={...customEntries[ci],...update}; saveCustom(); }
+  closeModal('scoreOverlay'); render();
 }
 
-// ── MODAL HELPERS ────────────────────────────────────────────────────────────
+// ── MODAL HELPERS ─────────────────────────────────────────────────────────────
 function openModal(id){ document.getElementById(id).classList.add('open'); document.body.style.overflow='hidden'; }
 function closeModal(id){ document.getElementById(id).classList.remove('open'); document.body.style.overflow=''; }
 function maybeClose(e,id){ if(e.target===document.getElementById(id)) closeModal(id); }
+document.addEventListener('keydown',e=>{ if(e.key==='Escape'){ closeModal('addOverlay'); closeModal('scoreOverlay'); } });
 
-// ── EXPORT / IMPORT ──────────────────────────────────────────────────────────
+// ── EXPORT / IMPORT ───────────────────────────────────────────────────────────
 function exportData(){
-  const payload = {
-    version: 1,
-    exported: new Date().toISOString(),
-    entries: customEntries,
-  };
-  const blob = new Blob([JSON.stringify(payload,null,2)],{type:'application/json'});
-  const a = document.createElement('a');
-  a.href = URL.createObjectURL(blob);
-  a.download = 'gfwc-entries-'+new Date().toISOString().slice(0,10)+'.json';
-  a.click();
+  const blob=new Blob([JSON.stringify({version:1,exported:new Date().toISOString(),entries:customEntries},null,2)],{type:'application/json'});
+  const a=document.createElement('a'); a.href=URL.createObjectURL(blob);
+  a.download='gfwc-'+new Date().toISOString().slice(0,10)+'.json'; a.click();
 }
-
 function importClick(){ document.getElementById('importFile').click(); }
 function importData(e){
-  const file = e.target.files[0];
-  if(!file) return;
-  const reader = new FileReader();
-  reader.onload = ev => {
-    try{
-      const data = JSON.parse(ev.target.result);
-      const entries = data.entries || data;
-      if(!Array.isArray(entries)) throw new Error('bad format');
-      if(!confirm(`Import ${entries.length} entries? This will REPLACE your current custom entries.`)) return;
-      customEntries = entries;
-      saveCustom();
-      render();
-      alert('Imported successfully!');
-    } catch(err){ alert('Import failed: '+err.message); }
-  };
-  reader.readAsText(file);
-  e.target.value='';
+  const file=e.target.files[0]; if(!file) return;
+  const r=new FileReader();
+  r.onload=ev=>{ try{
+    const data=JSON.parse(ev.target.result);
+    const entries=data.entries||data;
+    if(!Array.isArray(entries)) throw new Error('bad format');
+    if(!confirm(`Import ${entries.length} entries? This replaces current custom entries.`)) return;
+    customEntries=entries; saveCustom(); render(); alert('Imported!');
+  }catch(err){alert('Import failed: '+err.message);} };
+  r.readAsText(file); e.target.value='';
 }
 
-// ── KEYBOARD ─────────────────────────────────────────────────────────────────
-document.addEventListener('keydown', e => {
-  if(e.key==='Escape'){
-    closeModal('addOverlay');
-    closeModal('scoreOverlay');
-  }
-});
-
-// ── GO ───────────────────────────────────────────────────────────────────────
 render();
 </script>
 </body>
