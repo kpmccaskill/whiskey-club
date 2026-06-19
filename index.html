@@ -189,7 +189,7 @@ input::placeholder{color:var(--text-dim)}
 </div>
 
 <div class="export-bar">
-  <span style="font-size:.74rem;color:var(--text-dim)">Custom entries saved in browser</span>
+  <span id="saveStatus" style="font-size:.74rem;min-width:80px"></span>
   <button class="btn-export" onclick="exportData()">⬇ Export</button>
   <button class="btn-export" onclick="importClick()">⬆ Import</button>
   <input type="file" id="importFile" accept=".json" style="display:none" onchange="importData(event)">
@@ -394,12 +394,35 @@ let activeMemberSort = ''; // e.g. 'scoreJon' — sorts by that member's score
 
 let overrides = {}; // score overrides for BASE entries, keyed by id
 
-function loadCustom(){
-  try{ customEntries=JSON.parse(localStorage.getItem('gfwc_entries')||'[]'); }catch(e){ customEntries=[]; }
-  try{ overrides=JSON.parse(localStorage.getItem('gfwc_overrides')||'{}'); }catch(e){ overrides={}; }
+async function loadCustom(){
+  try{
+    const res = await fetch('/api/data');
+    if(res.ok){ const d=await res.json(); customEntries=d.entries||[]; overrides=d.overrides||{}; }
+  }catch(e){ customEntries=[]; overrides={}; }
 }
-function saveCustom(){ localStorage.setItem('gfwc_entries',JSON.stringify(customEntries)); }
-function saveOverrides(){ localStorage.setItem('gfwc_overrides',JSON.stringify(overrides)); }
+
+let _saveTimer=null;
+function scheduleSave(){
+  clearTimeout(_saveTimer);
+  setSaveStatus('saving');
+  _saveTimer=setTimeout(pushData,600);
+}
+async function pushData(){
+  try{
+    const res=await fetch('/api/data',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({entries:customEntries,overrides})});
+    setSaveStatus(res.ok?'saved':'error');
+  }catch(e){ setSaveStatus('error'); }
+}
+function setSaveStatus(s){
+  const el=document.getElementById('saveStatus');
+  if(!el) return;
+  el.textContent = s==='saving'?'Saving…':s==='saved'?'✓ Saved':'⚠ Save failed';
+  el.style.color = s==='error'?'#c04040':s==='saved'?'var(--green)':'var(--text-dim)';
+  if(s==='saved') setTimeout(()=>{ el.textContent=''; },2500);
+}
+
+function saveCustom(){ scheduleSave(); }
+function saveOverrides(){ scheduleSave(); }
 function getAllData(){
   const baseWithOverrides = BASE.map(d => overrides[d.id] ? {...d,...overrides[d.id]} : d);
   return [...baseWithOverrides,...customEntries];
@@ -715,12 +738,12 @@ document.addEventListener('keydown',e=>{ if(e.key==='Escape'){ closeModal('addOv
 
 // ── EXPORT / IMPORT ───────────────────────────────────────────────────────────
 function exportData(){
-  const blob=new Blob([JSON.stringify({version:1,exported:new Date().toISOString(),entries:customEntries},null,2)],{type:'application/json'});
+  const blob=new Blob([JSON.stringify({version:1,exported:new Date().toISOString(),entries:customEntries,overrides},null,2)],{type:'application/json'});
   const a=document.createElement('a'); a.href=URL.createObjectURL(blob);
   a.download='gfwc-'+new Date().toISOString().slice(0,10)+'.json'; a.click();
 }
 function importClick(){ document.getElementById('importFile').click(); }
-function importData(e){
+async function importData(e){
   const file=e.target.files[0]; if(!file) return;
   const r=new FileReader();
   r.onload=ev=>{ try{
@@ -728,19 +751,20 @@ function importData(e){
     const entries=data.entries||data;
     if(!Array.isArray(entries)) throw new Error('bad format');
     if(!confirm(`Import ${entries.length} entries? This replaces current custom entries.`)) return;
-    customEntries=entries; saveCustom(); render(); alert('Imported!');
+    customEntries=entries; if(data.overrides) overrides=data.overrides; await pushData(); render(); alert('Imported!');
   }catch(err){alert('Import failed: '+err.message);} };
   r.readAsText(file); e.target.value='';
 }
 
-restoreUIState();
-render();
-
-// save UI state on any filter/sort change
-['search','filterType','filterYear','filterMember','sortBy'].forEach(id=>{
-  document.getElementById(id).addEventListener('change',saveUIState);
-  document.getElementById(id).addEventListener('input',saveUIState);
-});
+(async()=>{
+  await loadCustom();
+  restoreUIState();
+  render();
+  ['search','filterType','filterYear','filterMember','sortBy'].forEach(id=>{
+    document.getElementById(id).addEventListener('change',saveUIState);
+    document.getElementById(id).addEventListener('input',saveUIState);
+  });
+})();
 </script>
 </body>
 </html>
